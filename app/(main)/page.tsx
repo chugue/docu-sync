@@ -1,7 +1,9 @@
+import ShowCase from "@/shared/components/ShowCase";
+
 export default function MainPage() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <main>
+      <ShowCase />
+    </main>
   );
 }
