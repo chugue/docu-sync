@@ -54,11 +54,11 @@ const showCaseTypes = [
 const ShowCase = () => {
   return (
     <section className="flex-center w-full h-[20rem] bg-showcase">
-      <div className="w-[60vw] h-full flex-col">
+      <div className="w-[60vw] min-w-[483px] h-full flex-col">
         <div className="w-full h-[4rem] flex items-center">
           <h1>새 문서 시작</h1>
         </div>
-        <div className="flex-1 grid grid-cols-7 gap-4">
+        <div className="flex-1 h-[250px] grid grid-cols-3 md:grid-cols-[repeat(auto-fit,minmax(150px,150px))] gap-4 overflow-hidden">
           {showCaseTypes &&
             showCaseTypes.map((item) => (
               <div key={item.id}>

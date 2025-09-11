@@ -156,7 +156,7 @@
     @apply bg-background text-foreground overflow-x-hidden;
   }
   h1 {
-    @apply font-bold;
+    @apply text-[16px];
   }
 }
 

@@ -51,18 +51,18 @@ const recentDocs = [
 const RecentDocs = () => {
   return (
     <section className="flex-center w-full h-[20rem] ">
-      <div className="w-[60vw] h-full flex-col">
+      <div className="w-[60vw] min-w-[483px] h-full flex-col">
         <div className="w-full h-[4rem] flex items-center">
           <h1>최근 문서</h1>
         </div>
-        <div className="flex-1 grid grid-cols-5 gap-4">
+        <div className="flex-1 grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(216px,216px))] gap-4">
           {recentDocs &&
             recentDocs.map((item) => (
               <div
                 key={item.id}
-                className="w-full h-[340px] border border-border flex flex-col rounded-md"
+                className="h-[340px] w-[216px] border border-border flex flex-col rounded-md hover:border-primary duration-300"
               >
-                <div className="w-full h-full relative">
+                <div className="w-full h-full  relative">
                   {item.image ? (
                     <Image
                       src={item.image}

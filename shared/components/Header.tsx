@@ -1,11 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 import Link from "next/link";
+import { AvatarDropdown } from "./AvatarDropdown";
 import { Input } from "./ui/input";
 
 const Header = () => {
   return (
-    <header className="flex top-0 h-12 z-50 w-full justify-between items-center px-6 relative shadow-xs">
+    <header className="flex top-0 h-12 z-30 w-full justify-between items-center px-6 relative shadow-xs">
       <Link href="/">
         <Image
           src="/logo.png"
@@ -16,12 +16,9 @@ const Header = () => {
         />
       </Link>
       <div className="w-full absolute flex-center">
-        <Input className="w-[30%] " placeholder="Search" />
+        <Input className="w-[30%] " placeholder="검색" />
       </div>
-      <Avatar className="rounded-full w-8 h-8 overflow-clip">
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <AvatarDropdown />
     </header>
   );
 };
