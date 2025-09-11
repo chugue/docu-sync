@@ -5,14 +5,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/shared/components/ui/popover";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
-import useSession from "../hooks/use-session";
 import { Button } from "./ui/button";
 
 export function AvatarDropdown() {
-  const { session } = useSession();
+  const { user } = useUser();
+  const { signOut } = useAuth();
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -21,18 +23,20 @@ export function AvatarDropdown() {
           aria-label="Open user menu"
         >
           <Avatar>
-            <AvatarImage src={session?.image} />
+            <AvatarImage src={user?.imageUrl} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-80 shadow-lg shrink-0">
         <div className="flex-center flex-col gap-4  ">
-          <p className="text-black text-sm">{session?.email}</p>
+          <p className="text-black text-sm">
+            {user?.emailAddresses[0].emailAddress}
+          </p>
           <div className="flex-center">
             <Image
-              src={session?.image ?? ""}
-              alt={session?.name ?? ""}
+              src={user?.imageUrl ?? ""}
+              alt={user?.firstName ?? ""}
               width={100}
               height={100}
               className="rounded-full my-2"
@@ -41,6 +45,7 @@ export function AvatarDropdown() {
           <Button
             className="flex-center flex-row gap-4 cursor-pointer w-full "
             variant="default"
+            onClick={() => signOut()}
           >
             <LogOut />
             <span>로그아웃 하기</span>

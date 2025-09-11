@@ -27,7 +27,7 @@ export const DocDropdown = () => {
           </svg>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40 px-1" align="end" alignOffset={-50}>
+      <DropdownMenuContent className="w-40 px-1" align="end" alignOffset={-120}>
         <DropdownMenuItem className="flex items-center gap-4">
           <PencilIcon className="size-4" />
           <span>이름 바꾸기</span>

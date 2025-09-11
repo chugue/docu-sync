@@ -52,7 +52,7 @@ const RecentDocs = () => {
   return (
     <section className="flex-center w-full h-[20rem] ">
       <div className="w-[60vw] min-w-[483px] h-full flex-col">
-        <div className="w-full h-[4rem] flex items-center">
+        <div className="w-full h-[4rem] flex items-center font-semibold">
           <h1>최근 문서</h1>
         </div>
         <div className="flex-1 grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(216px,216px))] gap-4">
