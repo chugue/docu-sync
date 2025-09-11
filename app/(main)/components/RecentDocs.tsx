@@ -62,18 +62,20 @@ const RecentDocs = () => {
                 key={item.id}
                 className="w-full h-[340px] border border-border flex flex-col rounded-md"
               >
-                {item.image ? (
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={100}
-                    height={100}
-                  />
-                ) : (
-                  <div className="w-full h-full border-b border-border">
-                    <h1>문서 1</h1>
-                  </div>
-                )}
+                <div className="w-full h-full relative">
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={100}
+                      height={100}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full border-b border-border" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-300/10" />
+                </div>
                 <div className="w-full flex flex-col p-2 px-4">
                   <div className="w-full mt-2 text-sm">
                     {item.name || "제목 없는 문서"}
