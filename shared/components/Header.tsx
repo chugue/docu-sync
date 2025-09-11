@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 
 const Header = () => {
   return (
-    <header className="flex top-0 h-12 z-50 w-full justify-between items-center px-6 relative shadow-md">
+    <header className="flex top-0 h-12 z-50 w-full justify-between items-center px-6 relative shadow-xs">
       <Image
         src="/logo.png"
         alt="logo"
