@@ -1,6 +1,7 @@
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { AvatarDropdown } from "./AvatarDropdown";
+import LoginButton from "./LoginButton";
 import { Input } from "./ui/input";
 
 const Header = () => {
@@ -18,7 +19,15 @@ const Header = () => {
       <div className="w-full absolute flex-center">
         <Input className="w-[30%] " placeholder="검색" />
       </div>
-      <AvatarDropdown />
+      <div className="flex flex-row">
+        <SignedOut>
+          <LoginButton name="로그인" variant="default" />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+          {/* <AvatarDropdown /> */}
+        </SignedIn>
+      </div>
     </header>
   );
 };
