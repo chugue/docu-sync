@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 const showCaseTypes = [
   {
     id: 1,
@@ -52,6 +55,7 @@ const showCaseTypes = [
 ];
 
 const ShowCase = () => {
+  const router = useRouter();
   return (
     <section className="flex-center w-full h-[20rem] bg-showcase">
       <div className="w-[60vw] min-w-[483px] h-full flex-col">
@@ -61,7 +65,17 @@ const ShowCase = () => {
         <div className="flex-1 h-[250px] grid grid-cols-3 md:grid-cols-[repeat(auto-fit,minmax(150px,150px))] gap-4 overflow-hidden">
           {showCaseTypes &&
             showCaseTypes.map((item) => (
-              <div key={item.id}>
+              <div
+                key={item.id}
+                className="cursor-pointer"
+                onClick={
+                  item.type === "empty"
+                    ? () => {
+                        router.push("/document");
+                      }
+                    : () => {}
+                }
+              >
                 <Image
                   src={item.image}
                   alt="showcase"

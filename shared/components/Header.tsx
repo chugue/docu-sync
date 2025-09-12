@@ -19,7 +19,7 @@ const Header = () => {
       <div className="w-full absolute flex-center">
         <Input className="w-[30%] " placeholder="검색" />
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row z-60">
         <SignedOut>
           <LoginButton name="로그인" variant="default" />
         </SignedOut>

@@ -1,5 +1,4 @@
 import DocumentHeader from "./components/DocumentHeader";
-import MenuBar from "./components/MenuBar";
 
 const DocumentLayout = ({
   children,
@@ -9,7 +8,6 @@ const DocumentLayout = ({
   return (
     <div>
       <DocumentHeader />
-      <MenuBar />
       {children}
     </div>
   );

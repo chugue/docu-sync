@@ -31,6 +31,7 @@ export default function RootLayout({
           style={{
             userSelect: "text",
           }}
+          cz-shortcut-listen="true"
         >
           {children}
         </body>
