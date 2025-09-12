@@ -6,24 +6,18 @@ import {
 } from "@/shared/components/ui/navigation-menu";
 import {
   ChevronRight,
-  Download,
-  FileText,
-  Folder,
-  Info,
-  Mail,
-  Pencil,
-  Printer,
-  Trash2,
-  Users,
+  Maximize,
+  MessageCircleMore,
+  PenLine,
+  Scissors,
 } from "lucide-react";
 import Link from "next/link";
 import DocumentHeaderSeperator from "../DocumentHeaderSeperator";
 
-const MenuBarFile = () => {
+const MenuBarView = () => {
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger>파일</NavigationMenuTrigger>
-
+      <NavigationMenuTrigger>보기</NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul className="grid w-[250px] gap-1">
           <li>
@@ -33,7 +27,8 @@ const MenuBarFile = () => {
                 className="flex-row items-center gap-2 justify-between"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <FileText />새 문서
+                  <PenLine />
+                  모드
                 </div>
                 <ChevronRight />
               </Link>
@@ -44,45 +39,8 @@ const MenuBarFile = () => {
                 className="flex-row items-center gap-2 justify-between"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <Folder />
-                  열기
-                </div>
-                <span className="text-muted-foreground text-sm">⌘O</span>
-              </Link>
-            </NavigationMenuLink>
-            <DocumentHeaderSeperator />
-            <NavigationMenuLink asChild>
-              <Link
-                href="#"
-                className="flex-row items-center gap-2 justify-between"
-              >
-                <div className="flex flex-row items-center gap-2">
-                  <Users />
-                  협업
-                </div>
-                <ChevronRight />
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="#"
-                className="flex-row items-center gap-2 justify-between"
-              >
-                <div className="flex flex-row items-center gap-2">
-                  <Mail />
-                  이메일
-                </div>
-                <ChevronRight />
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="#"
-                className="flex-row items-center gap-2 justify-between"
-              >
-                <div className="flex flex-row items-center gap-2">
-                  <Download />
-                  다운로드
+                  <MessageCircleMore />
+                  댓글
                 </div>
                 <ChevronRight />
               </Link>
@@ -94,8 +52,8 @@ const MenuBarFile = () => {
                 className="flex-row items-center gap-2 justify-between"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <Pencil />
-                  이름 바꾸기
+                  <Scissors className="opacity-0" />
+                  인쇄 레이아웃 표시
                 </div>
               </Link>
             </NavigationMenuLink>
@@ -105,8 +63,8 @@ const MenuBarFile = () => {
                 className="flex-row items-center gap-2 justify-between"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <Trash2 />
-                  휴지통으로 이동
+                  <Scissors className="opacity-0" />
+                  눈금자 표시
                 </div>
               </Link>
             </NavigationMenuLink>
@@ -117,21 +75,9 @@ const MenuBarFile = () => {
                 className="flex-row items-center gap-2 justify-between"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <Info />
-                  세부정보
+                  <Maximize />
+                  전체 화면
                 </div>
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="#"
-                className="flex-row items-center gap-2 justify-between"
-              >
-                <div className="flex flex-row items-center gap-2">
-                  <Printer />
-                  인쇄
-                </div>
-                <span className="text-muted-foreground text-sm">⌘P</span>
               </Link>
             </NavigationMenuLink>
           </li>
@@ -141,4 +87,4 @@ const MenuBarFile = () => {
   );
 };
 
-export default MenuBarFile;
+export default MenuBarView;

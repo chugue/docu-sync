@@ -1,5 +1,6 @@
 import {
   NavigationMenuContent,
+  NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuTrigger,
 } from "@/shared/components/ui/navigation-menu";
@@ -17,9 +18,9 @@ import {
 import Link from "next/link";
 import DocumentHeaderSeperator from "../DocumentHeaderSeperator";
 
-const MenuBarFile = () => {
+const MenuBarModify = () => {
   return (
-    <>
+    <NavigationMenuItem>
       <NavigationMenuTrigger>수정</NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul className="grid w-[250px] gap-1">
@@ -138,8 +139,8 @@ const MenuBarFile = () => {
           </li>
         </ul>
       </NavigationMenuContent>
-    </>
+    </NavigationMenuItem>
   );
 };
 
-export default MenuBarFile;
+export default MenuBarModify;

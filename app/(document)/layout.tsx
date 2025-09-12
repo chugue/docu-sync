@@ -6,10 +6,10 @@ const DocumentLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div>
+    <main className="bg-document-background min-h-screen">
       <DocumentHeader />
       {children}
-    </div>
+    </main>
   );
 };
 
