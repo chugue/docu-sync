@@ -24,7 +24,7 @@ const Header = () => {
           <LoginButton name="로그인" variant="default" />
         </SignedOut>
         <SignedIn>
-          <UserButton />
+          <UserButton showName={true} />
           {/* <AvatarDropdown /> */}
         </SignedIn>
       </div>
