@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* @import "../styles/_variables.scss";
+@import "../styles/_keyframe-animations.scss"; */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -7,6 +9,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-document-background: var(--document-background);
+  --color-tiptap-menu-background: var(--tiptap-menu-background);
   --color-showcase: var(--showcase);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -53,6 +56,7 @@
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --document-background: #fafbfd;
+  --tiptap-menu-background: #f0f3f8;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
   --primary: oklch(0.606 0.25 292.717);
@@ -168,5 +172,23 @@
 @layer utilities {
   .flex-center {
     @apply flex items-center justify-center;
+  }
+}
+
+.tiptap {
+  & h1 {
+    @apply text-2xl font-bold;
+  }
+
+  & h2 {
+    @apply text-xl font-bold;
+  }
+
+  & h3 {
+    @apply text-lg font-bold;
+  }
+
+  & h4 {
+    @apply text-base font-bold;
   }
 }
