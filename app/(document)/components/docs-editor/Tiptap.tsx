@@ -1,20 +1,18 @@
 "use client";
 
+import { useEditorStore } from "@/shared/store/use-editor-store";
 import Highlight from "@tiptap/extension-highlight";
 import { BulletList, ListItem, OrderedList } from "@tiptap/extension-list";
+import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TiptapMenubar from "./TiptapMenubar";
 
-interface DocumentEditorProps {
-  document: string;
-  setDocument: (document: string) => void;
-  onChange: (content: string) => void;
-}
+const Tiptap = () => {
+  const { editorState, setEditorState } = useEditorStore();
 
-const Tiptap = ({ document, setDocument, onChange }: DocumentEditorProps) => {
-  const editor = useEditor({
+  useEditor({
     editorProps: {
       attributes: {
         style: "padding-left: 56px, padding-right: 56px",
@@ -24,6 +22,7 @@ const Tiptap = ({ document, setDocument, onChange }: DocumentEditorProps) => {
     },
     extensions: [
       StarterKit,
+
       Highlight,
       BulletList.configure({
         HTMLAttributes: {
@@ -37,21 +36,46 @@ const Tiptap = ({ document, setDocument, onChange }: DocumentEditorProps) => {
         },
       }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TableKit.configure({
+        table: { resizable: true },
+      }),
     ],
-    content: document,
+    // content: document,
+    content: `
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th colspan="3">Description</th>
+            </tr>
+            <tr>
+              <td>Cyndi Lauper</td>
+              <td>Singer</td>
+              <td>Songwriter</td>
+              <td>Actress</td>
+            </tr>
+          </tbody>
+        </table>
+      `,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
+    onCreate: ({ editor }) => {
+      setEditorState(editor);
+    },
     onUpdate: ({ editor }) => {
       // console.log(editor.getJSON());
-      onChange(editor.getHTML());
+      setEditorState(editor);
+    },
+    onSelectionUpdate: ({ editor }) => {
+      setEditorState(editor);
     },
   });
 
   return (
     <div className="size-full overflow-x-auto print:p-0 print:bg-white print:overflow-visible">
-      <TiptapMenubar editor={editor} />
+      <TiptapMenubar editor={editorState} />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
-        <EditorContent editor={editor} />
+        <EditorContent editor={editorState} />
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const DocumentHeader = () => {
         </div>
       </div>
       <SignedIn>
-        <div className="flex items-center scale-150 justify-center mx-4">
+        <div className="flex items-center scale-120 justify-center mx-4">
           <UserButton />
         </div>
       </SignedIn>

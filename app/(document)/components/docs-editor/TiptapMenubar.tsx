@@ -17,10 +17,17 @@ import {
   Strikethrough,
 } from "lucide-react";
 
+interface TiptapMenubarIcons {
+  icon: React.ReactNode;
+  onClick: () => void;
+  pressed: boolean;
+  desc?: string;
+}
+
 const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) return null;
 
-  const options = [
+  const options: TiptapMenubarIcons[] = [
     {
       icon: <Heading1 className="size-4" />,
       onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
@@ -81,7 +88,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <Highlighter className="size-4" />,
       onClick: () => editor.chain().focus().toggleHighlight().run(),
       pressed: editor.isActive("highlight"),
-      shortcut: ["하이라이트"],
+      desc: "하이라이트",
     },
   ];
 
@@ -99,13 +106,13 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
               className="p-2 items-center"
             >
               {option.icon}
-              {option.shortcut && (
+              {option.desc && (
                 <span
                   className="absolute -bottom-8 -translate-x-[30px] text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
               pointer-events-none z-60 transition-opacity duration-300 whitespace-nowrap font-semibold
               tracking-wider"
                 >
-                  {option.shortcut}
+                  {option.desc}
                 </span>
               )}
             </Toggle>
