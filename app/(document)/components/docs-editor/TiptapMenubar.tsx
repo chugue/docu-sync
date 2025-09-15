@@ -14,13 +14,15 @@ import {
   Italic,
   List,
   ListOrdered,
+  Redo2,
   Strikethrough,
+  Undo2,
 } from "lucide-react";
 
 interface TiptapMenubarIcons {
   icon: React.ReactNode;
   onClick: () => void;
-  pressed: boolean;
+  pressed?: boolean;
   desc?: string;
 }
 
@@ -28,6 +30,16 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) return null;
 
   const options: TiptapMenubarIcons[] = [
+    {
+      icon: <Undo2 className="size-4" />,
+      onClick: () => editor.chain().focus().undo().run(),
+      desc: "실행취소(⌘Z)",
+    },
+    {
+      icon: <Redo2 className="size-4" />,
+      onClick: () => editor.chain().focus().redo().run(),
+      desc: "재실행(⌘⇧Z)",
+    },
     {
       icon: <Heading1 className="size-4" />,
       onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
@@ -101,7 +113,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
             className="relative group inline-block hover:bg-muted-foreground/10 rounded-md "
           >
             <Toggle
-              pressed={option.pressed}
+              pressed={option.pressed ?? false}
               onPressedChange={option.onClick}
               className="p-2 items-center"
             >

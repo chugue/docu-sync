@@ -196,6 +196,17 @@
     font-weight: 600;
   }
 
+  /* List styles */
+  ul,
+  ol {
+    padding: 0 1rem;
+
+    li p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+
   /* Table-specific styling */
   table {
     border-collapse: collapse;
@@ -206,7 +217,7 @@
 
     td,
     th {
-      border: 1px solid var(--gray-3);
+      border: 1px solid #cfcfcf;
       box-sizing: border-box;
       min-width: 1em;
       padding: 6px 8px;
@@ -219,13 +230,13 @@
     }
 
     th {
-      background-color: var(--gray-1);
+      background-color: #f0f3f8;
       font-weight: bold;
       text-align: left;
     }
 
     .selectedCell:after {
-      background: var(--gray-2);
+      background: #e6e8ec;
       content: "";
       left: 0;
       right: 0;
@@ -237,7 +248,7 @@
     }
 
     .column-resize-handle {
-      background-color: var(--purple);
+      background-color: var(--primary);
       bottom: -2px;
       pointer-events: none;
       position: absolute;
@@ -255,5 +266,35 @@
   &.resize-cursor {
     cursor: ew-resize;
     cursor: col-resize;
+  }
+
+  img {
+    display: block;
+    height: auto;
+    margin: 1.5rem 0;
+    max-width: 100%;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid var(--primary);
+    }
+  }
+}
+
+/* Character count */
+.character-count {
+  align-items: center;
+  color: var(--color-gray-500);
+  display: flex;
+  font-size: 0.75rem;
+  gap: 0.5rem;
+  margin: 1.5rem;
+
+  svg {
+    color: var(--primary);
+  }
+
+  &--warning,
+  &--warning svg {
+    color: var(--destructive);
   }
 }
