@@ -13,7 +13,7 @@ import StarterKit from "@tiptap/starter-kit";
 import TiptapMenubar from "./TiptapMenubar";
 
 const Tiptap = () => {
-  const { editorState, setEditorState } = useEditorStore();
+  const { editorState, setEditorState, zoomLevel } = useEditorStore();
 
   useEditor({
     editorProps: {
@@ -135,7 +135,15 @@ const Tiptap = () => {
     <div className="size-full overflow-x-auto print:p-0 print:bg-white print:overflow-visible">
       <TiptapMenubar editor={editorState} />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
-        <EditorContent editor={editorState} />
+        <div
+          className="w-[816px]"
+          style={{
+            transform: `scale(${zoomLevel / 100})`,
+            transformOrigin: "top center",
+          }}
+        >
+          <EditorContent editor={editorState} />
+        </div>
       </div>
     </div>
   );

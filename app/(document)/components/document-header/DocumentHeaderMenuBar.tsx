@@ -12,7 +12,7 @@ import MenuBarView from "./menu-bar-items/MenuBarView";
 
 const DocumentHeaderMenuBar = () => {
   return (
-    <NavigationMenu viewport={false}>
+    <NavigationMenu viewport={false} className="z-100">
       <NavigationMenuList>
         <MenuBarFile />
         <MenuBarModify />

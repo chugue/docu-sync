@@ -1,6 +1,6 @@
 "use client";
 
-import Tiptap from "./docs-editor/Tiptap";
+import Tiptap from "./tiptap-editor/Tiptap";
 
 const DocsEditor = () => {
   return (

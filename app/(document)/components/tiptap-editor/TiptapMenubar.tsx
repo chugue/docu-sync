@@ -1,5 +1,6 @@
 "use client";
 
+import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Toggle } from "@radix-ui/react-toggle";
 import { Editor } from "@tiptap/react";
 import {
@@ -14,10 +15,12 @@ import {
   Italic,
   List,
   ListOrdered,
+  Printer,
   Redo2,
   Strikethrough,
   Undo2,
 } from "lucide-react";
+import ZoomLevels from "./ZoomLevels";
 
 interface TiptapMenubarIcons {
   icon: React.ReactNode;
@@ -27,6 +30,7 @@ interface TiptapMenubarIcons {
 }
 
 const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
+  const { hasZoomLevelPopup } = useEditorStore();
   if (!editor) return null;
 
   const options: TiptapMenubarIcons[] = [
@@ -39,6 +43,20 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <Redo2 className="size-4" />,
       onClick: () => editor.chain().focus().redo().run(),
       desc: "재실행(⌘⇧Z)",
+    },
+    {
+      icon: <Printer className="size-4" />,
+      onClick: () => {
+        if (typeof window !== "undefined") window.print();
+      },
+      desc: "인쇄(⌘P)",
+    },
+    {
+      icon: <ZoomLevels />,
+      onClick: () => {
+        console.log("100%");
+      },
+      desc: hasZoomLevelPopup ? undefined : "확대/축소",
     },
     {
       icon: <Heading1 className="size-4" />,
@@ -106,7 +124,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
 
   return (
     <div className="px-5 print:hidden">
-      <div className=" rounded-md p-1 mb-1 space-x-2 z-50 bg-tiptap-menu-background">
+      <div className=" rounded-md p-1 mb-1 space-x-1 z-50 bg-tiptap-menu-background">
         {options.map((option, index) => (
           <div
             key={index}
@@ -120,7 +138,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
               {option.icon}
               {option.desc && (
                 <span
-                  className="absolute -bottom-8 -translate-x-[30px] text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
+                  className="absolute -bottom-8 -translate-x-[35px] text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
               pointer-events-none z-60 transition-opacity duration-300 whitespace-nowrap font-semibold
               tracking-wider"
                 >
