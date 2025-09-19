@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from "@/shared/components/tiptap-icons/chevron-down-icon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,14 +16,28 @@ const ZoomLevels = () => {
     useEditorStore();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu
+      open={hasZoomLevelPopup}
+      onOpenChange={(open) => setHasZoomLevelPopup(open)}
+    >
       <DropdownMenuTrigger asChild>
-        <span className="text-sm p-0 m-0 bg-transparent inline-flex items-center">
-          {Math.round(zoomLevel)}%
-        </span>
+        <div className="flex flex-row gap-1 items-center px-0.5">
+          <span className="text-sm  bg-transparent ">
+            {Math.round(zoomLevel)}%
+          </span>
+          <span
+            style={{
+              display: "inline-block",
+              transition: "transform 0.3s",
+              transform: hasZoomLevelPopup ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          >
+            <ChevronDownIcon className="size-3" />
+          </span>
+        </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="absolute left-0 z-100 ">
-        <DropdownMenuGroup className="grid w-[100px] gap-1 p-1">
+      <DropdownMenuContent className="absolute left-[-60px] z-100 w-auto top-2 ">
+        <DropdownMenuGroup className="grid w-auto gap-1">
           {zoomLevels.map((level) => {
             const label = `${level}%`;
             const isActive = zoomLevel === level;
@@ -33,7 +48,7 @@ const ZoomLevels = () => {
                 className="w-full"
               >
                 <div
-                  className="w-full text-center rounded-sm px-2 py-1 data-[active=true]:bg-accent data-[active=true]:text-accent-foreground cursor-pointer"
+                  className="w-full text-center rounded-sm py-0.5 data-[active=true]:bg-accent data-[active=true]:text-accent-foreground cursor-pointer"
                   onClick={() => {
                     setZoomLevel(level);
                   }}

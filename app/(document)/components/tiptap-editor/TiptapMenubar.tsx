@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/shared/lib/utils";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Toggle } from "@radix-ui/react-toggle";
 import { Editor } from "@tiptap/react";
@@ -24,6 +25,7 @@ import ZoomLevels from "./ZoomLevels";
 
 interface TiptapMenubarIcons {
   icon: React.ReactNode;
+  name: string;
   onClick: () => void;
   pressed?: boolean;
   desc?: string;
@@ -36,16 +38,19 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
   const options: TiptapMenubarIcons[] = [
     {
       icon: <Undo2 className="size-4" />,
+      name: "undo",
       onClick: () => editor.chain().focus().undo().run(),
       desc: "실행취소(⌘Z)",
     },
     {
       icon: <Redo2 className="size-4" />,
+      name: "redo",
       onClick: () => editor.chain().focus().redo().run(),
       desc: "재실행(⌘⇧Z)",
     },
     {
       icon: <Printer className="size-4" />,
+      name: "print",
       onClick: () => {
         if (typeof window !== "undefined") window.print();
       },
@@ -53,6 +58,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     },
     {
       icon: <ZoomLevels />,
+      name: "zoom",
       onClick: () => {
         console.log("100%");
       },
@@ -60,62 +66,74 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     },
     {
       icon: <Heading1 className="size-4" />,
+      name: "heading1",
       onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
       pressed: editor.isActive("heading", { level: 1 }),
     },
     {
       icon: <Heading2 className="size-4" />,
+      name: "heading2",
       onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       pressed: editor.isActive("heading", { level: 2 }),
     },
     {
       icon: <Heading3 className="size-4" />,
+      name: "heading3",
       onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
       pressed: editor.isActive("heading", { level: 3 }),
     },
     {
       icon: <Bold className="size-4" />,
+      name: "bold",
       onClick: () => editor.chain().focus().toggleBold().run(),
       pressed: editor.isActive("bold"),
     },
     {
       icon: <Italic className="size-4" />,
+      name: "italic",
       onClick: () => editor.chain().focus().toggleItalic().run(),
       pressed: editor.isActive("italic"),
     },
     {
       icon: <Strikethrough className="size-4" />,
+      name: "strike",
       onClick: () => editor.chain().focus().toggleStrike().run(),
       pressed: editor.isActive("strike"),
     },
     {
       icon: <AlignLeft className="size-4" />,
+      name: "alignLeft",
       onClick: () => editor.chain().focus().setTextAlign("left").run(),
       pressed: editor.isActive({ textAlign: "left" }),
     },
     {
       icon: <AlignCenter className="size-4" />,
+      name: "alignCenter",
       onClick: () => editor.chain().focus().setTextAlign("center").run(),
       pressed: editor.isActive({ textAlign: "center" }),
     },
     {
       icon: <AlignRight className="size-4" />,
+      name: "alignRight",
       onClick: () => editor.chain().focus().setTextAlign("right").run(),
       pressed: editor.isActive({ textAlign: "right" }),
     },
     {
       icon: <List className="size-4" />,
+      name: "bulletList",
       onClick: () => editor.chain().focus().toggleBulletList().run(),
       pressed: editor.isActive("bulletList"),
     },
     {
       icon: <ListOrdered className="size-4" />,
+      name: "orderedList",
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
 
       pressed: editor.isActive("orderedList"),
     },
     {
       icon: <Highlighter className="size-4" />,
+      name: "highlight",
       onClick: () => editor.chain().focus().toggleHighlight().run(),
       pressed: editor.isActive("highlight"),
       desc: "하이라이트",
@@ -124,16 +142,19 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
 
   return (
     <div className="px-5 print:hidden">
-      <div className=" rounded-md p-1 mb-1 space-x-1 z-50 bg-tiptap-menu-background">
+      <div className="flex rounded-md p-1 mb-1 space-x-1 z-50 bg-tiptap-menu-background items-center">
         {options.map((option, index) => (
           <div
             key={index}
-            className="relative group inline-block hover:bg-muted-foreground/10 rounded-md "
+            className={cn(
+              `flex relative group hover:bg-muted-foreground/10 rounded-md items-center`,
+              option.name === "zoom" ? "p-1" : "p-2"
+            )}
           >
             <Toggle
               pressed={option.pressed ?? false}
               onPressedChange={option.onClick}
-              className="p-2 items-center"
+              className="items-center"
             >
               {option.icon}
               {option.desc && (
