@@ -21,6 +21,7 @@ import {
   Strikethrough,
   Undo2,
 } from "lucide-react";
+import MenuSeperator from "./MenuSeperator";
 import ZoomLevels from "./ZoomLevels";
 
 interface TiptapMenubarIcons {
@@ -63,6 +64,11 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
         console.log("100%");
       },
       desc: hasZoomLevelPopup ? undefined : "확대/축소",
+    },
+    {
+      icon: <MenuSeperator />,
+      name: "seperator",
+      onClick: () => {},
     },
     {
       icon: <Heading1 className="size-4" />,
@@ -148,25 +154,30 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
             key={index}
             className={cn(
               `flex relative group hover:bg-muted-foreground/10 rounded-md items-center`,
-              option.name === "zoom" ? "p-1" : "p-2"
+              option.name === "zoom" ? "p-1" : "p-2",
+              option.name === "seperator" && "p-0"
             )}
           >
-            <Toggle
-              pressed={option.pressed ?? false}
-              onPressedChange={option.onClick}
-              className="items-center"
-            >
-              {option.icon}
-              {option.desc && (
-                <span
-                  className="absolute -bottom-8 -translate-x-[35px] text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
+            {option.name === "seperator" ? (
+              <MenuSeperator />
+            ) : (
+              <Toggle
+                pressed={option.pressed ?? false}
+                onPressedChange={option.onClick}
+                className="items-center"
+              >
+                {option.icon}
+                {option.desc && (
+                  <span
+                    className="absolute -bottom-8 -translate-x-[35px] text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
               pointer-events-none z-60 transition-opacity duration-300 whitespace-nowrap font-semibold
               tracking-wider"
-                >
-                  {option.desc}
-                </span>
-              )}
-            </Toggle>
+                  >
+                    {option.desc}
+                  </span>
+                )}
+              </Toggle>
+            )}
           </div>
         ))}
       </div>

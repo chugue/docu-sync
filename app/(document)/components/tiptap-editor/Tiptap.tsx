@@ -4,10 +4,16 @@ import { useEditorStore } from "@/shared/store/use-editor-store";
 import FileHandler from "@tiptap/extension-file-handler";
 import Highlight from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
-import { BulletList, ListItem, OrderedList } from "@tiptap/extension-list";
+import {
+  BulletList,
+  ListItem,
+  OrderedList,
+  TaskItem,
+  TaskList,
+} from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
-import { CharacterCount } from "@tiptap/extensions";
+import { CharacterCount, Selection } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TiptapMenubar from "./TiptapMenubar";
@@ -26,6 +32,9 @@ const Tiptap = () => {
     extensions: [
       StarterKit,
       Highlight,
+      Selection.configure({
+        className: "selection",
+      }),
       BulletList.configure({
         HTMLAttributes: {
           class: "list-disc ml-3",
@@ -45,7 +54,10 @@ const Tiptap = () => {
         inline: true,
       }),
       CharacterCount.configure(),
-
+      TaskList,
+      TaskItem.configure({
+        nested: true,
+      }),
       FileHandler.configure({
         allowedMimeTypes: [
           "image/png",
