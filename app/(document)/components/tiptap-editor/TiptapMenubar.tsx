@@ -16,11 +16,14 @@ import {
   Italic,
   List,
   ListOrdered,
+  Minus,
+  Plus,
   Printer,
   Redo2,
   Strikethrough,
   Undo2,
 } from "lucide-react";
+import FontSizeInput from "./FontSizeInput";
 import MenuSeperator from "./MenuSeperator";
 import ZoomLevels from "./ZoomLevels";
 
@@ -33,7 +36,8 @@ interface TiptapMenubarIcons {
 }
 
 const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
-  const { hasZoomLevelPopup } = useEditorStore();
+  const { hasZoomLevelPopup, fontSize, setFontSize } = useEditorStore();
+
   if (!editor) return null;
 
   const options: TiptapMenubarIcons[] = [
@@ -69,6 +73,21 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <MenuSeperator />,
       name: "seperator",
       onClick: () => {},
+    },
+    {
+      icon: <Minus className="size-4" />,
+      name: "font-size-minus",
+      onClick: () => setFontSize(editor, fontSize - 1),
+    },
+    {
+      icon: <FontSizeInput editor={editor} />,
+      name: "font-size-input",
+      onClick: () => {},
+    },
+    {
+      icon: <Plus className="size-4" />,
+      name: "font-size-minus",
+      onClick: () => setFontSize(editor, fontSize + 1),
     },
     {
       icon: <Heading1 className="size-4" />,
@@ -155,7 +174,8 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
             className={cn(
               `flex relative group hover:bg-muted-foreground/10 rounded-md items-center`,
               option.name === "zoom" ? "p-1" : "p-2",
-              option.name === "seperator" && "p-0"
+              option.name === "seperator" && "p-0",
+              option.name === "font-size-input" && "p-0"
             )}
           >
             {option.name === "seperator" ? (

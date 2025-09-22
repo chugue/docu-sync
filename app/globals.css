@@ -219,11 +219,13 @@
     li {
       align-items: flex-start;
       display: flex;
+      padding-top: 2px;
 
       > label {
         flex: 0 0 auto;
         margin-right: 0.5rem;
         user-select: none;
+        align-self: center;
       }
 
       > div {

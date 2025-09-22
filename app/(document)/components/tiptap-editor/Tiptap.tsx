@@ -13,6 +13,7 @@ import {
 } from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
+import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 import { CharacterCount, Selection } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -31,6 +32,8 @@ const Tiptap = () => {
     },
     extensions: [
       StarterKit,
+      TextStyle,
+      FontSize,
       Highlight,
       Selection.configure({
         className: "selection",
@@ -114,21 +117,12 @@ const Tiptap = () => {
     ],
     // content: document,
     content: `
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th colspan="3">Description</th>
-            </tr>
-            <tr>
-              <td>Cyndi Lauper</td>
-              <td>Singer</td>
-              <td>Songwriter</td>
-              <td>Actress</td>
-            </tr>
-          </tbody>
-        </table>
-      `,
+    <p>Adjusting font sizes can greatly affect the readability of your text, making it easier for users to engage with your content.</p>
+    <p>When designing a website, it's crucial to balance large headings and smaller body text for a clean, organized layout.</p>
+    <p>When setting font sizes, it's important to consider accessibility, ensuring that text is readable for users with different visual impairments.</p>
+    <p><span style="font-size: 10px">Too small</span> a font size can strain the eyes, while <span style="font-size: 40px">too large</span> can disrupt the flow of the design.</p>
+    <p>When designing for mobile, font sizes should be adjusted to maintain readability on smaller screens.</p>
+  `,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
     onCreate: ({ editor }) => {
