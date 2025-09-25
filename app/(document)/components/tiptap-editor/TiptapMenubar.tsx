@@ -21,10 +21,12 @@ import {
   Printer,
   Redo2,
   Strikethrough,
+  Underline,
   Undo2,
 } from "lucide-react";
 import FontSizeInput from "./FontSizeInput";
 import MenuSeperator from "./MenuSeperator";
+import TextColor from "./TextColor";
 import ZoomLevels from "./ZoomLevels";
 
 interface TiptapMenubarIcons {
@@ -36,7 +38,8 @@ interface TiptapMenubarIcons {
 }
 
 const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
-  const { hasZoomLevelPopup, fontSize, setFontSize } = useEditorStore();
+  const { hasZoomLevelPopup, colorPalettePopup, fontSize, setFontSize } =
+    useEditorStore();
 
   if (!editor) return null;
 
@@ -77,7 +80,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     {
       icon: <Minus className="size-4" />,
       name: "font-size-minus",
-      onClick: () => setFontSize(editor, fontSize - 1),
+      onClick: () => setFontSize(editor, fontSize! - 1),
     },
     {
       icon: <FontSizeInput editor={editor} />,
@@ -87,7 +90,12 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     {
       icon: <Plus className="size-4" />,
       name: "font-size-minus",
-      onClick: () => setFontSize(editor, fontSize + 1),
+      onClick: () => setFontSize(editor, fontSize! + 1),
+    },
+    {
+      icon: <MenuSeperator />,
+      name: "seperator",
+      onClick: () => {},
     },
     {
       icon: <Heading1 className="size-4" />,
@@ -108,6 +116,11 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       pressed: editor.isActive("heading", { level: 3 }),
     },
     {
+      icon: <MenuSeperator />,
+      name: "seperator",
+      onClick: () => {},
+    },
+    {
       icon: <Bold className="size-4" />,
       name: "bold",
       onClick: () => editor.chain().focus().toggleBold().run(),
@@ -120,10 +133,27 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       pressed: editor.isActive("italic"),
     },
     {
+      icon: <Underline className="size-4 " />,
+      name: "underline",
+      onClick: () => editor.chain().focus().toggleUnderline().run(),
+      pressed: editor.isActive("underline") ? true : false,
+    },
+    {
+      icon: <TextColor editor={editor} />,
+      name: "text-color",
+      onClick: () => {},
+      desc: colorPalettePopup ? undefined : "텍스트 색상",
+    },
+    {
       icon: <Strikethrough className="size-4" />,
       name: "strike",
       onClick: () => editor.chain().focus().toggleStrike().run(),
       pressed: editor.isActive("strike"),
+    },
+    {
+      icon: <MenuSeperator />,
+      name: "seperator",
+      onClick: () => {},
     },
     {
       icon: <AlignLeft className="size-4" />,
@@ -175,7 +205,8 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
               `flex relative group hover:bg-muted-foreground/10 rounded-md items-center`,
               option.name === "zoom" ? "p-1" : "p-2",
               option.name === "seperator" && "p-0",
-              option.name === "font-size-input" && "p-0"
+              option.name === "font-size-input" && "p-0",
+              option.name === "text-color" && "p-1 px-2"
             )}
           >
             {option.name === "seperator" ? (
@@ -189,7 +220,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
                 {option.icon}
                 {option.desc && (
                   <span
-                    className="absolute -bottom-8 -translate-x-[35px] text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
+                    className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[12px] bg-black text-white rounded-sm px-2 py-1 opacity-0 group-hover:opacity-100
               pointer-events-none z-60 transition-opacity duration-300 whitespace-nowrap font-semibold
               tracking-wider"
                   >

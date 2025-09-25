@@ -1,42 +1,58 @@
+import useOpenMotion from "@/shared/components/animations/use-open-motion";
 import { Input } from "@/shared/components/ui/input";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 
-import { useGSAP } from "@gsap/react";
 import { Editor } from "@tiptap/react";
-import gsap from "gsap";
 
-import { useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
 const FONT_SIZES = [8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96];
 
 const FontSizeInput = ({ editor }: { editor: Editor }) => {
-  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  useOpenMotion({ ref: ref as RefObject<HTMLDivElement>, isOpen });
   const { fontSize, setFontSize } = useEditorStore();
+  const [inputValue, setInputValue] = useState<string | number>(fontSize ?? "");
 
-  useGSAP(() => {
-    if (!open) return;
-    gsap.from(".popup", {
-      opacity: 0,
-      duration: 0.1,
-      y: -30,
-      scale: 0.95,
-    });
-  }, [open]);
+  useEffect(() => {
+    setInputValue(fontSize ?? "");
+  }, [fontSize]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const applyFontSize = () => {
+    const newValue = parseInt(inputValue as string, 10);
+    if (isNaN(newValue)) return setInputValue(fontSize ?? "");
+    setFontSize(editor, newValue);
+    setIsOpen(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      applyFontSize();
+      e.currentTarget.blur();
+    }
+  };
 
   return (
     <div className="relative inline-block">
       <Input
-        value={fontSize}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-        onChange={(e) => setFontSize(editor, parseInt(e.target.value))}
+        value={inputValue}
+        onFocus={() => setIsOpen(true)}
+        onBlur={applyFontSize}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
         className="w-10 p-0 text-center bg-gray-50 m-0"
       />
-      {open && (
+      {isOpen && (
         <div
+          ref={ref}
           role="menu"
           aria-label="font-size-suggestions"
-          className="absolute left-[-11px] z-100 min-w-[4.5rem] top-10 p-1 bg-white rounded-md shadow-md border border-gray-200 popup"
+          className="absolute left-[-15px] z-100 min-w-[4.5rem] top-10 p-1 bg-white rounded-md shadow-md border border-gray-200 popup"
         >
           {FONT_SIZES.map((size) => (
             <div

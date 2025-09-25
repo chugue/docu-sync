@@ -13,7 +13,7 @@ import {
 } from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
-import { FontSize, TextStyle } from "@tiptap/extension-text-style";
+import { FontSize, TextStyleKit } from "@tiptap/extension-text-style";
 import { CharacterCount, Selection } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -32,7 +32,7 @@ const Tiptap = () => {
     },
     extensions: [
       StarterKit,
-      TextStyle,
+      TextStyleKit,
       FontSize,
       Highlight,
       Selection.configure({
