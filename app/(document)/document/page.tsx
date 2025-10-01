@@ -4,7 +4,7 @@ const DocumentPage = () => {
   return (
     <main>
       <DocsEditor />
-      DocumentPage
+      {/* <SimpleEditor /> */}
     </main>
   );
 };

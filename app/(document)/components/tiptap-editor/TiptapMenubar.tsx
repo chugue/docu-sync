@@ -2,7 +2,6 @@
 
 import { cn } from "@/shared/lib/utils";
 import { useEditorStore } from "@/shared/store/use-editor-store";
-import { Toggle } from "@radix-ui/react-toggle";
 import { Editor } from "@tiptap/react";
 import {
   AlignCenter,
@@ -24,6 +23,7 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
+import TextBackgroundColor from "./BackgroundColor";
 import FontSizeInput from "./FontSizeInput";
 import MenuSeperator from "./MenuSeperator";
 import TextColor from "./TextColor";
@@ -38,8 +38,12 @@ interface TiptapMenubarIcons {
 }
 
 const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
-  const { hasZoomLevelPopup, colorPalettePopup, fontSize, setFontSize } =
-    useEditorStore();
+  const {
+    hasZoomLevelPopup,
+    fontColorPalettePopup: colorPalettePopup,
+    fontSize,
+    setFontSize,
+  } = useEditorStore();
 
   if (!editor) return null;
 
@@ -80,7 +84,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     {
       icon: <Minus className="size-4" />,
       name: "font-size-minus",
-      onClick: () => setFontSize(editor, fontSize! - 1),
+      onClick: () => setFontSize(editor, fontSize - 1),
     },
     {
       icon: <FontSizeInput editor={editor} />,
@@ -90,7 +94,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     {
       icon: <Plus className="size-4" />,
       name: "font-size-minus",
-      onClick: () => setFontSize(editor, fontSize! + 1),
+      onClick: () => setFontSize(editor, fontSize + 1),
     },
     {
       icon: <MenuSeperator />,
@@ -124,7 +128,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <Bold className="size-4" />,
       name: "bold",
       onClick: () => editor.chain().focus().toggleBold().run(),
-      pressed: editor.isActive("bold"),
+      pressed: editor.isActive("bold") ? true : false,
     },
     {
       icon: <Italic className="size-4" />,
@@ -142,7 +146,15 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <TextColor editor={editor} />,
       name: "text-color",
       onClick: () => {},
+      pressed: editor.getAttributes("textStyle").color,
       desc: colorPalettePopup ? undefined : "텍스트 색상",
+    },
+    {
+      icon: <TextBackgroundColor editor={editor} />,
+      name: "background-color",
+      onClick: () => {},
+      pressed: editor.getAttributes("textStyle").backgroundColor,
+      desc: colorPalettePopup ? undefined : "배경 색상",
     },
     {
       icon: <Strikethrough className="size-4" />,
@@ -203,6 +215,8 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
             key={index}
             className={cn(
               `flex relative group hover:bg-muted-foreground/10 rounded-md items-center`,
+              option.pressed &&
+                "bg-muted-foreground/10 transition-all duration-300",
               option.name === "zoom" ? "p-1" : "p-2",
               option.name === "seperator" && "p-0",
               option.name === "font-size-input" && "p-0",
@@ -212,10 +226,12 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
             {option.name === "seperator" ? (
               <MenuSeperator />
             ) : (
-              <Toggle
-                pressed={option.pressed ?? false}
-                onPressedChange={option.onClick}
-                className="items-center"
+              <button
+                onClick={option.onClick}
+                className={cn(
+                  "items-center hover:bg-transparent transition-colors",
+                  option.pressed && "text-primary"
+                )}
               >
                 {option.icon}
                 {option.desc && (
@@ -227,7 +243,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
                     {option.desc}
                   </span>
                 )}
-              </Toggle>
+              </button>
             )}
           </div>
         ))}

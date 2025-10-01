@@ -1,26 +1,31 @@
-import useOpenMotion from "@/shared/components/animations/use-open-motion";
+import useOpenMotion from "@/shared/hooks/animations/use-open-motion";
 import useColorPallettePopup from "@/shared/hooks/use-color-pallette-popup";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Editor, useEditorState } from "@tiptap/react";
 import { Type } from "lucide-react";
 import { RefObject, useRef } from "react";
-import TextColorPalette from "./TextColorPalette";
+import ColorPalette from "./ColorPalette";
 
 const TextColor = ({ editor }: { editor: Editor }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { fontColor, colorPalettePopup, setFontColor, setColorPalettePopup } =
-    useEditorStore();
+  const {
+    fontColor,
+    fontColorPalettePopup: colorPalettePopup,
+    setFontColor,
+    setFontColorPalettePopup: setColorPalettePopup,
+  } = useEditorStore();
 
   useOpenMotion({
     ref: ref as RefObject<HTMLDivElement>,
     isOpen: colorPalettePopup,
   });
 
-  useEditorState({
+  const editorState = useEditorState({
     editor,
     selector: (state) => {
-      const color = state.editor.getAttributes("textStyle").color;
-      return color;
+      const fontColor = state.editor.getAttributes("textStyle").color;
+      console.log(fontColor);
+      return fontColor;
     },
   });
 
@@ -41,7 +46,7 @@ const TextColor = ({ editor }: { editor: Editor }) => {
   };
 
   return (
-    <div className="relative flex w-4 h-4 justify-center items-center">
+    <div className="relative flex w-4 h-4 justify-center items-center cursor-pointer my-0.5">
       <div
         className="items-center justify-center w-3 h-3"
         onClick={handleButtonClick}
@@ -51,16 +56,22 @@ const TextColor = ({ editor }: { editor: Editor }) => {
         <div className="flex flex-col items-center justify-center gap-0.5 w-full">
           <Type className="size-3" />
           <div
-            className="h-[3px] w-full rounded-md mb-1"
-            style={{ backgroundColor: fontColor ?? "#000000" }}
+            className="h-[3px] w-full rounded-md "
+            style={{
+              backgroundColor: editorState
+                ? editorState !== ""
+                  ? editorState
+                  : "#000000"
+                : "#000000",
+            }}
           />
         </div>
       </div>
 
       {colorPalettePopup && (
-        <TextColorPalette
+        <ColorPalette
           ref={ref as RefObject<HTMLDivElement>}
-          fontColor={fontColor ?? "#000000"}
+          color={editorState ?? "#000000"}
           handleColorChange={handleColorChange}
         />
       )}

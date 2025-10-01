@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/* @import "../styles/_variables.scss";
-@import "../styles/_keyframe-animations.scss"; */
+@import "../styles/_variables.scss";
+@import "../styles/_keyframe-animations.scss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -175,7 +175,7 @@
   }
 }
 
-.tiptap {
+/* .tiptap {
   :first-child {
     margin-top: 0;
   }
@@ -184,7 +184,6 @@
     box-shadow: 0 0 0 2px var(--primary);
   }
 
-  /* Heading styles */
   h1 {
     font-size: 1.4rem;
     font-weight: 900;
@@ -200,7 +199,6 @@
     font-weight: 600;
   }
 
-  /* List styles */
   ul,
   ol {
     padding: 0 1rem;
@@ -210,7 +208,7 @@
       margin-bottom: 0.25em;
     }
   }
-  /* Task list specific styles */
+
   ul[data-type="taskList"] {
     list-style: none;
     margin-left: 0;
@@ -242,7 +240,6 @@
     }
   }
 
-  /* Table-specific styling */
   table {
     border-collapse: collapse;
     margin: 0;
@@ -313,7 +310,7 @@
       outline: 3px solid var(--primary);
     }
   }
-}
+} */
 
 /* Character count */
 .character-count {

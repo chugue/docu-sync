@@ -3,17 +3,13 @@ import { COLOR_PALETTE } from "@/shared/constants/color-palette";
 import { cn } from "@/shared/lib/utils";
 import { Check } from "lucide-react";
 
-export interface TextColorPaletteProps {
+export interface ColorPaletteProps {
   ref: React.RefObject<HTMLDivElement>;
-  fontColor: string;
+  color: string;
   handleColorChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextColorPalette = ({
-  ref,
-  fontColor,
-  handleColorChange,
-}: TextColorPaletteProps) => {
+const ColorPalette = ({ ref, color, handleColorChange }: ColorPaletteProps) => {
   return (
     <div
       className="absolute top-full z-100 left-0 mt-1 p-3 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[240px]"
@@ -29,7 +25,7 @@ const TextColorPalette = ({
                 style={{ backgroundColor: colorItem.color }}
                 className={cn(
                   `w-6 h-6 rounded-full border-1 hover:scale-110 transition-transform cursor-pointer flex-center`,
-                  fontColor === colorItem.color && "shadow-md"
+                  color === colorItem.color && "shadow-md"
                 )}
                 onClick={() =>
                   handleColorChange({
@@ -37,7 +33,7 @@ const TextColorPalette = ({
                   } as React.ChangeEvent<HTMLInputElement>)
                 }
               >
-                {fontColor === colorItem.color &&
+                {color === colorItem.color &&
                   (colorItem.variant === "dark" ? (
                     <Check className="size-4 text-white" />
                   ) : (
@@ -66,4 +62,4 @@ const TextColorPalette = ({
   );
 };
 
-export default TextColorPalette;
+export default ColorPalette;

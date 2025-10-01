@@ -2,14 +2,14 @@ import { useEffect } from "react";
 
 interface UseColorPallettePopupProps {
   ref: React.RefObject<HTMLDivElement>;
-  setColorPalettePopup: (colorPalettePopup: boolean) => void;
   colorPalettePopup: boolean;
+  setColorPalettePopup: (colorPalettePopup: boolean) => void;
 }
 
 const useColorPallettePopup = ({
   ref,
-  setColorPalettePopup,
   colorPalettePopup,
+  setColorPalettePopup,
 }: UseColorPallettePopupProps) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
