@@ -24,7 +24,6 @@ const TextColor = ({ editor }: { editor: Editor }) => {
     editor,
     selector: (state) => {
       const fontColor = state.editor.getAttributes("textStyle").color;
-      console.log(fontColor);
       return fontColor;
     },
   });

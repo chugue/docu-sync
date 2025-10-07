@@ -13,7 +13,7 @@ interface EditorState {
 
   setEditorState: (editor: Editor) => void;
   setZoomLevel: (zoomLevel: number) => void;
-  setFontSize: (editor: Editor, fontSize: number) => void;
+  setFontSize: (fontSize: number) => void;
   setHasZoomLevelPopup: (hasZoomLevelPopup: boolean) => void;
   setFontColor: (fontColor: string) => void;
   setFontBackgroundColor: (fontBackgroundColor: string) => void;
@@ -24,7 +24,7 @@ interface EditorState {
 export const useEditorStore = create<EditorState>((set) => ({
   editorState: null,
   zoomLevel: 100,
-  fontSize: 12,
+  fontSize: 16,
   fontColor: "#000000",
   fontBackgroundColor: "#FFFFFF",
   hasZoomLevelPopup: false,
@@ -33,11 +33,7 @@ export const useEditorStore = create<EditorState>((set) => ({
 
   setEditorState: (editorState) => set({ editorState }),
   setZoomLevel: (zoomLevel) => set({ zoomLevel }),
-  setFontSize: (editor, fontSize) =>
-    set(() => {
-      editor.chain().focus().setFontSize(`${fontSize}px`).run();
-      return { fontSize };
-    }),
+  setFontSize: (fontSize) => set({ fontSize }),
   setHasZoomLevelPopup: (hasZoomLevelPopup) => set({ hasZoomLevelPopup }),
   setFontColor: (fontColor) => set({ fontColor }),
   setFontBackgroundColor: (fontBackgroundColor) => set({ fontBackgroundColor }),

@@ -84,7 +84,15 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     {
       icon: <Minus className="size-4" />,
       name: "font-size-minus",
-      onClick: () => setFontSize(editor, fontSize - 1),
+      onClick: () => {
+        const currentSize = editor.getAttributes("textStyle").fontSize;
+        if (currentSize && typeof currentSize === "string") {
+          currentSize.replace("px", "");
+          setFontSize(+currentSize);
+        }
+        const newFontSize = +fontSize - 1;
+        editor.chain().focus().setFontSize(`${newFontSize}px`).run();
+      },
     },
     {
       icon: <FontSizeInput editor={editor} />,
@@ -93,8 +101,16 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     },
     {
       icon: <Plus className="size-4" />,
-      name: "font-size-minus",
-      onClick: () => setFontSize(editor, fontSize + 1),
+      name: "font-size-plus",
+      onClick: () => {
+        const currentSize = editor.getAttributes("textStyle").fontSize;
+        if (currentSize && typeof currentSize === "string") {
+          currentSize.replace("px", "");
+          setFontSize(+currentSize);
+        }
+        const newFontSize = +fontSize + 1;
+        editor.chain().focus().setFontSize(`${newFontSize}px`).run();
+      },
     },
     {
       icon: <MenuSeperator />,
