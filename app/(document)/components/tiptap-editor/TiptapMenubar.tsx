@@ -8,9 +8,6 @@ import {
   AlignLeft,
   AlignRight,
   Bold,
-  Heading1,
-  Heading2,
-  Heading3,
   Highlighter,
   Italic,
   List,
@@ -25,6 +22,7 @@ import {
 } from "lucide-react";
 import TextBackgroundColor from "./BackgroundColor";
 import FontSizeInput from "./FontSizeInput";
+import Headings from "./Headings";
 import MenuSeperator from "./MenuSeperator";
 import TextColor from "./TextColor";
 import ZoomLevels from "./ZoomLevels";
@@ -32,7 +30,7 @@ import ZoomLevels from "./ZoomLevels";
 interface TiptapMenubarIcons {
   icon: React.ReactNode;
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
   pressed?: boolean;
   desc?: string;
 }
@@ -117,27 +115,10 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       name: "seperator",
       onClick: () => {},
     },
+
     {
-      icon: <Heading1 className="size-4" />,
-      name: "heading1",
-      onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-      pressed: editor.isActive("heading", { level: 1 }),
-    },
-    {
-      icon: <Heading2 className="size-4" />,
-      name: "heading2",
-      onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-      pressed: editor.isActive("heading", { level: 2 }),
-    },
-    {
-      icon: <Heading3 className="size-4" />,
-      name: "heading3",
-      onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-      pressed: editor.isActive("heading", { level: 3 }),
-    },
-    {
-      icon: <MenuSeperator />,
-      name: "seperator",
+      icon: <Headings editor={editor} />,
+      name: "headings",
       onClick: () => {},
     },
     {
@@ -242,8 +223,8 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
             {option.name === "seperator" ? (
               <MenuSeperator />
             ) : (
-              <button
-                onClick={option.onClick}
+              <div
+                onMouseDown={option.onClick}
                 className={cn(
                   "items-center hover:bg-transparent transition-colors",
                   option.pressed && "text-primary"
@@ -259,7 +240,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
                     {option.desc}
                   </span>
                 )}
-              </button>
+              </div>
             )}
           </div>
         ))}

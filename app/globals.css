@@ -175,13 +175,13 @@
   }
 }
 
-/* .tiptap {
+.tiptap {
   :first-child {
     margin-top: 0;
   }
 
   .selection {
-    box-shadow: 0 0 0 2px var(--primary);
+    @apply bg-[#b4d7ff];
   }
 
   h1 {
@@ -310,7 +310,7 @@
       outline: 3px solid var(--primary);
     }
   }
-} */
+}
 
 /* Character count */
 .character-count {
