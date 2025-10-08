@@ -2,75 +2,65 @@ import useOpenMotion from "@/shared/hooks/animations/use-open-motion";
 import useColorPallettePopup from "@/shared/hooks/use-color-pallette-popup";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Editor, useEditorState } from "@tiptap/react";
-import { Type } from "lucide-react";
+import { Highlighter } from "lucide-react";
 import { RefObject, useRef } from "react";
 import ColorPalette from "./ColorPalette";
 
-const TextColor = ({ editor }: { editor: Editor }) => {
+const TextBackgroundColor = ({ editor }: { editor: Editor }) => {
   const ref = useRef<HTMLDivElement>(null);
   const {
-    fontColor,
-    fontColorPalettePopup: colorPalettePopup,
-    setFontColor,
-    setFontColorPalettePopup: setColorPalettePopup,
+    fontBackgroundColorPopup,
+    setFontBackgroundColorPopup,
+    setFontBackgroundColor,
   } = useEditorStore();
 
   useOpenMotion({
     ref: ref as RefObject<HTMLDivElement>,
-    isOpen: colorPalettePopup,
+    isOpen: fontBackgroundColorPopup,
   });
 
   const editorState = useEditorState({
     editor,
     selector: (state) => {
-      const fontColor = state.editor.getAttributes("textStyle").color;
-      return fontColor;
+      const fontBackgroundColor =
+        state.editor.getAttributes("textStyle").backgroundColor;
+      return fontBackgroundColor;
     },
   });
 
   useColorPallettePopup({
     ref: ref as RefObject<HTMLDivElement>,
-    setColorPalettePopup,
-    colorPalettePopup,
+    colorPalettePopup: fontBackgroundColorPopup,
+    setColorPalettePopup: setFontBackgroundColorPopup,
   });
 
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    editor.chain().focus().setColor(e.target.value).run();
-    setFontColor(e.target.value);
-    setColorPalettePopup(false);
+    editor.chain().focus().setBackgroundColor(e.target.value).run();
+    setFontBackgroundColor(e.target.value);
+    setFontBackgroundColorPopup(false);
   };
 
   const handleButtonClick = () => {
-    setColorPalettePopup(true);
+    setFontBackgroundColorPopup(true);
   };
 
   return (
-    <div className="relative flex w-4 h-4 justify-center items-center cursor-pointer my-0.5">
+    <div className="relative flex w-4 h-4 justify-center items-center cursor-pointer p-0">
       <div
         className="items-center justify-center w-3 h-3"
         onClick={handleButtonClick}
-        onBlur={() => setColorPalettePopup(false)}
-        onFocus={() => setColorPalettePopup(true)}
+        onBlur={() => setFontBackgroundColorPopup(false)}
+        onFocus={() => setFontBackgroundColorPopup(true)}
       >
         <div className="flex flex-col items-center justify-center gap-0.5 w-full">
-          <Type className="size-3" />
-          <div
-            className="h-[3px] w-full rounded-md "
-            style={{
-              backgroundColor: editorState
-                ? editorState !== ""
-                  ? editorState
-                  : "#000000"
-                : "#000000",
-            }}
-          />
+          <Highlighter className="size-4" />
         </div>
       </div>
 
-      {colorPalettePopup && (
+      {fontBackgroundColorPopup && (
         <ColorPalette
           ref={ref as RefObject<HTMLDivElement>}
-          color={editorState ?? "#000000"}
+          color={editorState ?? "#ffffff"}
           handleColorChange={handleColorChange}
         />
       )}
@@ -78,4 +68,4 @@ const TextColor = ({ editor }: { editor: Editor }) => {
   );
 };
 
-export default TextColor;
+export default TextBackgroundColor;

@@ -290,6 +290,22 @@
     }
   }
 
+  pre {
+    background: #1e1e2d;
+    border-radius: 0.5rem;
+    color: var(--color-white);
+    font-family: "JetBrainsMono", monospace;
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+
+    code {
+      background: none;
+      color: inherit;
+      font-size: 0.8rem;
+      padding: 0;
+    }
+  }
+
   .tableWrapper {
     margin: 1.5rem 0;
     overflow-x: auto;
@@ -308,6 +324,17 @@
 
     .ProseMirror-selectednode {
       outline: 3px solid var(--primary);
+    }
+  }
+
+  /* Link styles */
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--purple-contrast);
     }
   }
 }

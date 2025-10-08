@@ -1,4 +1,4 @@
-import DocsEditor from "../components/DocsEditor";
+import DocsEditor from "../_components/DocsEditor";
 
 const DocumentPage = () => {
   return (

@@ -1,5 +1,7 @@
 "use client";
 
+import { CodeBlockIcon } from "@/components/tiptap-icons/code-block-icon";
+import setLink from "@/shared/helpers/set-link";
 import { cn } from "@/shared/lib/utils";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Editor } from "@tiptap/react";
@@ -8,8 +10,8 @@ import {
   AlignLeft,
   AlignRight,
   Bold,
-  Highlighter,
   Italic,
+  Link,
   List,
   ListOrdered,
   Minus,
@@ -20,12 +22,12 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
-import TextBackgroundColor from "./BackgroundColor";
-import FontSizeInput from "./FontSizeInput";
-import Headings from "./Headings";
-import MenuSeperator from "./MenuSeperator";
-import TextColor from "./TextColor";
-import ZoomLevels from "./ZoomLevels";
+import TextBackgroundColor from "./_sub/BackgroundColor";
+import FontSizeInput from "./_sub/FontSizeInput";
+import Headings from "./_sub/Headings";
+import MenuSeperator from "./_sub/MenuSeperator";
+import TextColor from "./_sub/TextColor";
+import ZoomLevels from "./_sub/ZoomLevels";
 
 interface TiptapMenubarIcons {
   icon: React.ReactNode;
@@ -44,6 +46,10 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
   } = useEditorStore();
 
   if (!editor) return null;
+
+  /**
+   * TODO: 링크, 코멘트 추가, 이미지 삽입, 글 자간 높이 조절
+   */
 
   const options: TiptapMenubarIcons[] = [
     {
@@ -113,19 +119,38 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     {
       icon: <MenuSeperator />,
       name: "seperator",
-      onClick: () => {},
+      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+      pressed: editor.isActive("codeBlock"),
     },
-
     {
       icon: <Headings editor={editor} />,
       name: "headings",
       onClick: () => {},
     },
     {
+      icon: <CodeBlockIcon className="size-4" />,
+      name: "code-block",
+      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+      pressed: editor.isActive("codeBlock"),
+    },
+
+    {
+      icon: <Link className="size-4" />,
+      name: "link",
+      onClick: () => setLink(editor),
+      pressed: editor.isActive("link"),
+    },
+    {
+      icon: <MenuSeperator />,
+      name: "seperator",
+      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+      pressed: editor.isActive("codeBlock"),
+    },
+    {
       icon: <Bold className="size-4" />,
       name: "bold",
       onClick: () => editor.chain().focus().toggleBold().run(),
-      pressed: editor.isActive("bold") ? true : false,
+      pressed: editor.isActive("bold"),
     },
     {
       icon: <Italic className="size-4" />,
@@ -137,7 +162,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <Underline className="size-4 " />,
       name: "underline",
       onClick: () => editor.chain().focus().toggleUnderline().run(),
-      pressed: editor.isActive("underline") ? true : false,
+      pressed: editor.isActive("underline"),
     },
     {
       icon: <TextColor editor={editor} />,
@@ -192,15 +217,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <ListOrdered className="size-4" />,
       name: "orderedList",
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
-
       pressed: editor.isActive("orderedList"),
-    },
-    {
-      icon: <Highlighter className="size-4" />,
-      name: "highlight",
-      onClick: () => editor.chain().focus().toggleHighlight().run(),
-      pressed: editor.isActive("highlight"),
-      desc: "하이라이트",
     },
   ];
 
@@ -211,13 +228,14 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
           <div
             key={index}
             className={cn(
-              `flex relative group hover:bg-muted-foreground/10 rounded-md items-center`,
+              `flex relative group hover:bg-muted-foreground/10 rounded-md items-center p-2`,
               option.pressed &&
                 "bg-muted-foreground/10 transition-all duration-300",
-              option.name === "zoom" ? "p-1" : "p-2",
+              option.name === "zoom" && "p-1 py-2",
               option.name === "seperator" && "p-0",
               option.name === "font-size-input" && "p-0",
-              option.name === "text-color" && "p-1 px-2"
+              option.name === "text-color" && "p-1 px-2",
+              option.name === "headings" && "p-1 py-2"
             )}
           >
             {option.name === "seperator" ? (

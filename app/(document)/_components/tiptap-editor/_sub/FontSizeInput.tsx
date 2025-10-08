@@ -94,7 +94,7 @@ const FontSizeInput = ({ editor }: { editor: Editor }) => {
               key={index}
               role="menuitem"
               aria-label={`font-size-${size}`}
-              className="px-2 py-1 hover:bg-gray-100 cursor-pointer rounded-sm text-sm block w-full"
+              className="px-2 py-1 hover:bg-gray-100 cursor-pointer rounded-sm text-sm block w-full text-center"
               onMouseDown={(e) => {
                 e.preventDefault();
                 setFontSize(size);

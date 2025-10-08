@@ -1,9 +1,11 @@
 "use client";
 
 import { useEditorStore } from "@/shared/store/use-editor-store";
+import CodeBlock from "@tiptap/extension-code-block";
 import FileHandler from "@tiptap/extension-file-handler";
 import Highlight from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
 import {
   BulletList,
   ListItem,
@@ -31,6 +33,10 @@ const Tiptap = () => {
       },
     },
     extensions: [
+      CodeBlock.configure({
+        enableTabIndentation: true,
+        tabSize: 2,
+      }),
       StarterKit,
       TextStyleKit,
       FontSize,
@@ -114,14 +120,86 @@ const Tiptap = () => {
           });
         },
       }),
+      Link.configure({
+        openOnClick: false,
+        autolink: false,
+        defaultProtocol: "https",
+        protocols: ["http", "https"],
+        isAllowedUri: (url, ctx) => {
+          try {
+            // construct URL
+            const parsedUrl = url.includes(":")
+              ? new URL(url)
+              : new URL(`${ctx.defaultProtocol}://${url}`);
+
+            // use default validation
+            if (!ctx.defaultValidate(parsedUrl.href)) {
+              return false;
+            }
+
+            // disallowed protocols
+            const disallowedProtocols = ["ftp", "file", "mailto"];
+            const protocol = parsedUrl.protocol.replace(":", "");
+
+            if (disallowedProtocols.includes(protocol)) {
+              return false;
+            }
+
+            // only allow protocols specified in ctx.protocols
+            const allowedProtocols = ctx.protocols.map((p) =>
+              typeof p === "string" ? p : p.scheme
+            );
+
+            if (!allowedProtocols.includes(protocol)) {
+              return false;
+            }
+
+            // disallowed domains
+            const disallowedDomains = [
+              "example-phishing.com",
+              "malicious-site.net",
+            ];
+            const domain = parsedUrl.hostname;
+
+            if (disallowedDomains.includes(domain)) {
+              return false;
+            }
+
+            // all checks have passed
+            return true;
+          } catch {
+            return false;
+          }
+        },
+        shouldAutoLink: (url) => {
+          try {
+            // construct URL
+            const parsedUrl = url.includes(":")
+              ? new URL(url)
+              : new URL(`https://${url}`);
+
+            // only auto-link if the domain is not in the disallowed list
+            const disallowedDomains = [
+              "example-no-autolink.com",
+              "another-no-autolink.com",
+            ];
+            const domain = parsedUrl.hostname;
+
+            return !disallowedDomains.includes(domain);
+          } catch {
+            return false;
+          }
+        },
+      }),
     ],
     // content: document,
     content: `
-    <p>Adjusting font sizes can greatly affect the readability of your text, making it easier for users to engage with your content.</p>
-    <p>When designing a website, it's crucial to balance large headings and smaller body text for a clean, organized layout.</p>
-    <p>When setting font sizes, it's important to consider accessibility, ensuring that text is readable for users with different visual impairments.</p>
-    <p><span style="font-size: 10px">Too small</span> a font size can strain the eyes, while <span style="font-size: 40px">too large</span> can disrupt the flow of the design.</p>
-    <p>When designing for mobile, font sizes should be adjusted to maintain readability on smaller screens.</p>
+    <p>
+      Wow, this editor has support for links to the whole <a href="https://en.wikipedia.org/wiki/World_Wide_Web">world wide web</a>. We tested a lot of URLs and I think you can add *every URL* you want. Isn’t that cool? Let’s try <a href="https://statamic.com/">another one!</a> Yep, seems to work.
+    </p>
+    <p>
+      By default every link will get a <code>rel="noopener noreferrer nofollow"</code> attribute. It’s configurable though.
+    </p>
   `,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
