@@ -14,17 +14,21 @@ import {
   Link,
   List,
   ListOrdered,
+  MessageSquareIcon,
   Minus,
   Plus,
   Printer,
   Redo2,
+  RemoveFormattingIcon,
+  SpellCheckIcon,
   Strikethrough,
   Underline,
   Undo2,
 } from "lucide-react";
 import TextBackgroundColor from "./_sub/BackgroundColor";
+import FontFamilyDropdowns from "./_sub/FontFamilyDropdowns";
 import FontSizeInput from "./_sub/FontSizeInput";
-import Headings from "./_sub/Headings";
+import HeadingDropDowns from "./_sub/Headings";
 import MenuSeperator from "./_sub/MenuSeperator";
 import TextColor from "./_sub/TextColor";
 import ZoomLevels from "./_sub/ZoomLevels";
@@ -42,13 +46,15 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     hasZoomLevelPopup,
     fontColorPalettePopup: colorPalettePopup,
     fontSize,
+    spellCheck,
     setFontSize,
+    setSpellCheck,
   } = useEditorStore();
 
   if (!editor) return null;
 
   /**
-   * TODO: 링크, 코멘트 추가, 이미지 삽입, 글 자간 높이 조절
+   * TODO: 코멘트 추가, 이미지 삽입, 글 자간 높이 조절
    */
 
   const options: TiptapMenubarIcons[] = [
@@ -71,6 +77,22 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
         if (typeof window !== "undefined") window.print();
       },
       desc: "인쇄(⌘P)",
+    },
+    {
+      icon: <SpellCheckIcon className="size-4" />,
+      name: "spell-check",
+      onClick: () => {
+        const newValue = !spellCheck;
+        setSpellCheck(newValue);
+
+        if (editor?.view?.dom) {
+          editor.view.dom.setAttribute("spellcheck", String(newValue));
+          editor.view.dom.blur();
+          editor.view.dom.focus();
+        }
+      },
+      pressed: spellCheck,
+      desc: "맞춤법 검사",
     },
     {
       icon: <ZoomLevels />,
@@ -123,7 +145,12 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       pressed: editor.isActive("codeBlock"),
     },
     {
-      icon: <Headings editor={editor} />,
+      icon: <FontFamilyDropdowns editor={editor} />,
+      name: "font-family",
+      onClick: () => {},
+    },
+    {
+      icon: <HeadingDropDowns editor={editor} />,
       name: "headings",
       onClick: () => {},
     },
@@ -218,6 +245,17 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       name: "orderedList",
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
       pressed: editor.isActive("orderedList"),
+    },
+    {
+      icon: <MessageSquareIcon className="size-4" />,
+      name: "comment",
+      onClick: () => {},
+      pressed: false,
+    },
+    {
+      icon: <RemoveFormattingIcon className="size-4" />,
+      name: "remove-formatting",
+      onClick: () => editor.chain().focus().unsetAllMarks().run(),
     },
   ];
 

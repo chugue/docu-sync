@@ -36,7 +36,10 @@ const ZoomLevels = () => {
           </span>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="absolute left-[-50px] z-100 min-w-[6rem] top-2 ">
+      <DropdownMenuContent
+        className="absolute left-[-50px] z-100 min-w-[6rem] top-2 "
+        align="center"
+      >
         <DropdownMenuGroup className="grid w-auto gap-1">
           {zoomLevels.map((level) => {
             const label = `${level}%`;

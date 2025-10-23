@@ -1,7 +1,7 @@
 import { HeadingDropdownMenu } from "@/components/tiptap-ui/heading-dropdown-menu";
 import { Editor } from "@tiptap/react";
 
-const Headings = ({ editor }: { editor: Editor }) => {
+const HeadingDropDowns = ({ editor }: { editor: Editor }) => {
   return (
     <HeadingDropdownMenu
       editor={editor}
@@ -12,4 +12,4 @@ const Headings = ({ editor }: { editor: Editor }) => {
   );
 };
 
-export default Headings;
+export default HeadingDropDowns;

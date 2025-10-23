@@ -15,21 +15,27 @@ import {
 } from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
-import { FontSize, TextStyleKit } from "@tiptap/extension-text-style";
+import {
+  FontFamily,
+  FontSize,
+  TextStyleKit,
+} from "@tiptap/extension-text-style";
 import { CharacterCount, Selection } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TiptapMenubar from "./TiptapMenubar";
 
 const Tiptap = () => {
-  const { editorState, setEditorState, zoomLevel } = useEditorStore();
+  const { editorState, setEditorState, zoomLevel, spellCheck } =
+    useEditorStore();
 
   useEditor({
     editorProps: {
       attributes: {
         style: "padding-left: 56px, padding-right: 56px",
-        class:
-          "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] py-10 px-14 cursor-text",
+        class: `focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] py-10 px-14 cursor-text ${
+          spellCheck ? "spellcheck" : "no-spellcheck"
+        }`,
       },
     },
     extensions: [
@@ -40,6 +46,7 @@ const Tiptap = () => {
       StarterKit,
       TextStyleKit,
       FontSize,
+      FontFamily,
       Highlight,
       Selection.configure({
         className: "selection",
@@ -192,7 +199,6 @@ const Tiptap = () => {
         },
       }),
     ],
-    // content: document,
     content: `
     <p>
       Wow, this editor has support for links to the whole <a href="https://en.wikipedia.org/wiki/World_Wide_Web">world wide web</a>. We tested a lot of URLs and I think you can add *every URL* you want. Isn’t that cool? Let’s try <a href="https://statamic.com/">another one!</a> Yep, seems to work.

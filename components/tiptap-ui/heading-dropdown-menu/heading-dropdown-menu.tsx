@@ -96,7 +96,15 @@ export const HeadingDropdownMenu = React.forwardRef<
             className="flex flex-row items-center"
           >
             <Icon className="tiptap-button-icon size-4" />
-            <ChevronDownIcon className="size-3" />
+            <span
+              style={{
+                display: "inline-block",
+                transition: "transform 0.3s",
+                transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            >
+              <ChevronDownIcon className="size-3" />
+            </span>
           </button>
         </DropdownMenuTrigger>
 
