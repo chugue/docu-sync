@@ -27,6 +27,7 @@ import FontFamilyDropdowns from "./_sub/FontFamilyDropdowns";
 import FontSizeInput from "./_sub/FontSizeInput";
 import HeadingDropDowns from "./_sub/Headings";
 import HighlightColor from "./_sub/HighlightColor";
+import ImageButton from "./_sub/ImageButton";
 import LinkButton from "./_sub/LinkButton";
 import MenuSeperator from "./_sub/MenuSeperator";
 import TextColor from "./_sub/TextColor";
@@ -255,6 +256,18 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <RemoveFormattingIcon className="size-4" />,
       name: "remove-formatting",
       onClick: () => editor.chain().focus().unsetAllMarks().run(),
+    },
+
+    {
+      icon: <MenuSeperator />,
+      name: "seperator",
+      onClick: () => {},
+    },
+
+    {
+      icon: <ImageButton editor={editor} />,
+      name: "image",
+      onClick: () => {},
     },
   ];
 

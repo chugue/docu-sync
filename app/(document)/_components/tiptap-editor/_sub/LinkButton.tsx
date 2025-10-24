@@ -35,10 +35,14 @@ const LinkButton = ({ editor }: { editor: Editor }) => {
   return (
     <DropdownMenu
       open={isOpen}
-      onOpenChange={(open) =>
-        open &&
-        (setValue(editor.getAttributes("link").href || ""), setIsOpen(open))
-      }
+      onOpenChange={(open) => {
+        if (open) {
+          setValue(editor.getAttributes("link").href || "");
+        } else {
+          setValue("");
+        }
+        setIsOpen(open);
+      }}
     >
       <DropdownMenuTrigger asChild>
         <button className="h-4 w-4 flex items-center justify-center rounded-sm text-sm flex-col shrink-0 p-0 leading-none">
