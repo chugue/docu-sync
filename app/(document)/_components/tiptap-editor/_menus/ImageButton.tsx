@@ -67,14 +67,14 @@ const ImageButton = ({ editor }: { editor: Editor }) => {
             align="start"
           >
             <DropdownMenuItem
-              className="flex flex-row items-center gap-2 hover:bg-gray-100 hover:outline-none px-2 py-1 cursor-pointer"
+              className="flex flex-row items-center gap-2 hover:bg-neutral-200/80 hover:outline-none px-2 py-1 cursor-pointer"
               onClick={onUpload}
             >
               <UploadIcon className="size-4 mr-2" />
               업로드
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="flex flex-row items-center gap-2 hover:bg-gray-100 hover:outline-none px-2 py-1 cursor-pointer"
+              className="flex flex-row items-center gap-2 hover:bg-neutral-200/80 hover:outline-none px-2 py-1 cursor-pointer"
               onClick={() => setIsDialogOpen(true)}
             >
               <SearchIcon className="size-4 mr-2" />

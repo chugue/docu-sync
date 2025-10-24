@@ -25,7 +25,7 @@ import {
 import { CharacterCount, Selection } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import TiptapMenubar from "./TiptapMenubar";
+import TiptapMenubar from "./TiptapMenuHeader";
 
 const Tiptap = () => {
   const { editorState, setEditorState, zoomLevel, spellCheck } =

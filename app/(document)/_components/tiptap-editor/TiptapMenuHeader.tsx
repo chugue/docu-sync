@@ -5,9 +5,6 @@ import { cn } from "@/shared/lib/utils";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Editor } from "@tiptap/react";
 import {
-  AlignCenter,
-  AlignLeft,
-  AlignRight,
   Bold,
   Italic,
   List,
@@ -23,15 +20,16 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
-import FontFamilyDropdowns from "./_sub/FontFamilyDropdowns";
-import FontSizeInput from "./_sub/FontSizeInput";
-import HeadingDropDowns from "./_sub/Headings";
-import HighlightColor from "./_sub/HighlightColor";
-import ImageButton from "./_sub/ImageButton";
-import LinkButton from "./_sub/LinkButton";
-import MenuSeperator from "./_sub/MenuSeperator";
-import TextColor from "./_sub/TextColor";
-import ZoomLevels from "./_sub/ZoomLevels";
+import TextAlignButton from "./_menus/AlignButton";
+import FontFamilyDropdowns from "./_menus/FontFamilyDropdowns";
+import FontSizeInput from "./_menus/FontSizeInput";
+import HeadingDropDowns from "./_menus/Headings";
+import HighlightColor from "./_menus/HighlightColor";
+import ImageButton from "./_menus/ImageButton";
+import LinkButton from "./_menus/LinkButton";
+import MenuSeperator from "./_menus/MenuSeperator";
+import TextColor from "./_menus/TextColor";
+import ZoomLevels from "./_menus/ZoomLevels";
 
 interface TiptapMenubarIcons {
   icon: React.ReactNode;
@@ -217,22 +215,13 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       onClick: () => {},
     },
     {
-      icon: <AlignLeft className="size-4" />,
-      name: "alignLeft",
-      onClick: () => editor.chain().focus().setTextAlign("left").run(),
-      pressed: editor.isActive({ textAlign: "left" }),
-    },
-    {
-      icon: <AlignCenter className="size-4" />,
-      name: "alignCenter",
-      onClick: () => editor.chain().focus().setTextAlign("center").run(),
-      pressed: editor.isActive({ textAlign: "center" }),
-    },
-    {
-      icon: <AlignRight className="size-4" />,
-      name: "alignRight",
-      onClick: () => editor.chain().focus().setTextAlign("right").run(),
-      pressed: editor.isActive({ textAlign: "right" }),
+      icon: <TextAlignButton editor={editor} />,
+      name: "text-align",
+      onClick: () => {},
+      pressed: ["left", "center", "right", "justify"].some((align) =>
+        editor.isActive({ textAlign: align })
+      ),
+      desc: "텍스트 정렬",
     },
     {
       icon: <List className="size-4" />,
