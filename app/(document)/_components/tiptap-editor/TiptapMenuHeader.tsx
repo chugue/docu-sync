@@ -7,8 +7,6 @@ import { Editor } from "@tiptap/react";
 import {
   Bold,
   Italic,
-  List,
-  ListOrdered,
   MessageSquareIcon,
   Minus,
   Plus,
@@ -27,6 +25,7 @@ import HeadingDropDowns from "./_menus/Headings";
 import HighlightColor from "./_menus/HighlightColor";
 import ImageButton from "./_menus/ImageButton";
 import LinkButton from "./_menus/LinkButton";
+import ListButton from "./_menus/ListButton";
 import MenuSeperator from "./_menus/MenuSeperator";
 import TextColor from "./_menus/TextColor";
 import ZoomLevels from "./_menus/ZoomLevels";
@@ -224,16 +223,12 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       desc: "텍스트 정렬",
     },
     {
-      icon: <List className="size-4" />,
-      name: "bulletList",
-      onClick: () => editor.chain().focus().toggleBulletList().run(),
-      pressed: editor.isActive("bulletList"),
-    },
-    {
-      icon: <ListOrdered className="size-4" />,
-      name: "orderedList",
-      onClick: () => editor.chain().focus().toggleOrderedList().run(),
-      pressed: editor.isActive("orderedList"),
+      icon: <ListButton editor={editor} />,
+      name: "list",
+      onClick: () => {},
+      pressed: ["bulletList", "orderedList"].some((list) =>
+        editor.isActive(list)
+      ),
     },
     {
       icon: <MessageSquareIcon className="size-4" />,
