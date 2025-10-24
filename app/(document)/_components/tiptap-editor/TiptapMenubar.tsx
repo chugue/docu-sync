@@ -1,7 +1,6 @@
 "use client";
 
 import { CodeBlockIcon } from "@/components/tiptap-icons/code-block-icon";
-import setLink from "@/shared/helpers/set-link";
 import { cn } from "@/shared/lib/utils";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import { Editor } from "@tiptap/react";
@@ -11,7 +10,6 @@ import {
   AlignRight,
   Bold,
   Italic,
-  Link,
   List,
   ListOrdered,
   MessageSquareIcon,
@@ -29,6 +27,7 @@ import FontFamilyDropdowns from "./_sub/FontFamilyDropdowns";
 import FontSizeInput from "./_sub/FontSizeInput";
 import HeadingDropDowns from "./_sub/Headings";
 import HighlightColor from "./_sub/HighlightColor";
+import LinkButton from "./_sub/LinkButton";
 import MenuSeperator from "./_sub/MenuSeperator";
 import TextColor from "./_sub/TextColor";
 import ZoomLevels from "./_sub/ZoomLevels";
@@ -162,9 +161,9 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
     },
 
     {
-      icon: <Link className="size-4" />,
+      icon: <LinkButton editor={editor} />,
       name: "link",
-      onClick: () => setLink(editor),
+      onClick: () => {},
       pressed: editor.isActive("link"),
     },
     {

@@ -329,12 +329,10 @@
 
   /* Link styles */
   a {
-    color: var(--color-primary);
-    text-decoration: underline;
-    cursor: pointer;
+    @apply text-blue-500 cursor-pointer;
 
     &:hover {
-      color: var(--purple-contrast);
+      @apply underline;
     }
   }
 

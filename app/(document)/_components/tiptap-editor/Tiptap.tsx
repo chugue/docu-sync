@@ -139,15 +139,18 @@ const Tiptap = () => {
       }),
       Link.configure({
         openOnClick: false,
+        enableClickSelection: true,
         autolink: false,
         defaultProtocol: "https",
-        protocols: ["http", "https"],
+        protocols: ["https"],
         isAllowedUri: (url, ctx) => {
           try {
             // construct URL
             const parsedUrl = url.includes(":")
               ? new URL(url)
               : new URL(`${ctx.defaultProtocol}://${url}`);
+
+            console.log(parsedUrl.href);
 
             // use default validation
             if (!ctx.defaultValidate(parsedUrl.href)) {
