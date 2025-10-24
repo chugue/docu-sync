@@ -1,6 +1,7 @@
 "use client";
 
 import { useEditorStore } from "@/shared/store/use-editor-store";
+import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
 import FileHandler from "@tiptap/extension-file-handler";
 import Highlight from "@tiptap/extension-highlight";
@@ -16,6 +17,7 @@ import {
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
 import {
+  Color,
   FontFamily,
   FontSize,
   TextStyleKit,
@@ -47,7 +49,15 @@ const Tiptap = () => {
       TextStyleKit,
       FontSize,
       FontFamily,
-      Highlight,
+      Color,
+      Code.configure({
+        HTMLAttributes: {
+          class: "inline-code",
+        },
+      }),
+      Highlight.configure({
+        multicolor: true,
+      }),
       Selection.configure({
         className: "selection",
       }),

@@ -25,10 +25,10 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
-import TextBackgroundColor from "./_sub/BackgroundColor";
 import FontFamilyDropdowns from "./_sub/FontFamilyDropdowns";
 import FontSizeInput from "./_sub/FontSizeInput";
 import HeadingDropDowns from "./_sub/Headings";
+import HighlightColor from "./_sub/HighlightColor";
 import MenuSeperator from "./_sub/MenuSeperator";
 import TextColor from "./_sub/TextColor";
 import ZoomLevels from "./_sub/ZoomLevels";
@@ -199,11 +199,11 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       desc: colorPalettePopup ? undefined : "텍스트 색상",
     },
     {
-      icon: <TextBackgroundColor editor={editor} />,
-      name: "background-color",
+      icon: <HighlightColor editor={editor} />,
+      name: "highlight-color",
       onClick: () => {},
       pressed: editor.getAttributes("textStyle").backgroundColor,
-      desc: colorPalettePopup ? undefined : "배경 색상",
+      desc: colorPalettePopup ? undefined : "하이라이트",
     },
     {
       icon: <Strikethrough className="size-4" />,

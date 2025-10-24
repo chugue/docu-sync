@@ -12,6 +12,7 @@ interface EditorState {
   fontColorPalettePopup: boolean;
   fontBackgroundColorPopup: boolean;
   fontFamilyPopup: boolean;
+  headingPopup: boolean;
 
   setEditorState: (editor: Editor) => void;
   setZoomLevel: (zoomLevel: number) => void;
@@ -23,6 +24,7 @@ interface EditorState {
   setFontColorPalettePopup: (fontColorPalettePopup: boolean) => void;
   setFontBackgroundColorPopup: (fontBackgroundColorPopup: boolean) => void;
   setFontFamilyPopup: (fontFamilyPopup: boolean) => void;
+  setHeadingPopup: (headingPopup: boolean) => void;
 }
 
 export const useEditorStore = create<EditorState>((set) => ({
@@ -36,6 +38,7 @@ export const useEditorStore = create<EditorState>((set) => ({
   fontColorPalettePopup: false,
   fontBackgroundColorPopup: false,
   fontFamilyPopup: false,
+  headingPopup: false,
 
   setEditorState: (editorState) => set({ editorState }),
   setZoomLevel: (zoomLevel) => set({ zoomLevel }),
@@ -49,4 +52,5 @@ export const useEditorStore = create<EditorState>((set) => ({
   setFontBackgroundColorPopup: (fontBackgroundColorPopup) =>
     set({ fontBackgroundColorPopup }),
   setFontFamilyPopup: (fontFamilyPopup) => set({ fontFamilyPopup }),
+  setHeadingPopup: (headingPopup) => set({ headingPopup }),
 }));

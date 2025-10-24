@@ -108,7 +108,12 @@ export const HeadingDropdownMenu = React.forwardRef<
           </button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="start" portal={portal}>
+        <DropdownMenuContent
+          align="start"
+          sideOffset={12}
+          portal={portal}
+          className="-ml-2"
+        >
           <Card>
             <CardBody>
               <ButtonGroup>

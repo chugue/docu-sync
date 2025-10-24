@@ -1,79 +1,40 @@
-import useOpenMotion from "@/shared/hooks/animations/use-open-motion";
-import useColorPallettePopup from "@/shared/hooks/use-color-pallette-popup";
-import { useEditorStore } from "@/shared/store/use-editor-store";
-import { Editor, useEditorState } from "@tiptap/react";
-import { Type } from "lucide-react";
-import { RefObject, useRef } from "react";
-import ColorPalette from "./ColorPalette";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
+import { Editor } from "@tiptap/react";
+import { CirclePicker, ColorResult } from "react-color";
 
 const TextColor = ({ editor }: { editor: Editor }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const {
-    fontColorPalettePopup: colorPalettePopup,
-    setFontColor,
-    setFontColorPalettePopup: setColorPalettePopup,
-  } = useEditorStore();
+  const value = editor.getAttributes("textStyle").color || "#000000";
 
-  useOpenMotion({
-    ref: ref as RefObject<HTMLDivElement>,
-    isOpen: colorPalettePopup,
-  });
-
-  const editorState = useEditorState({
-    editor,
-    selector: (state) => {
-      const fontColor = state.editor.getAttributes("textStyle").color;
-      return fontColor;
-    },
-  });
-
-  useColorPallettePopup({
-    ref: ref as RefObject<HTMLDivElement>,
-    setColorPalettePopup,
-    colorPalettePopup,
-  });
-
-  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    editor.chain().focus().setColor(e.target.value).run();
-    setFontColor(e.target.value);
-    setColorPalettePopup(false);
-  };
-
-  const handleButtonClick = () => {
-    setColorPalettePopup(true);
+  const onChange = (color: ColorResult) => {
+    editor.chain().focus().setColor(color.hex).run();
   };
 
   return (
-    <div className="relative flex w-4 h-4 justify-center items-center cursor-pointer my-0.5">
-      <div
-        className="items-center justify-center w-3 h-3"
-        onClick={handleButtonClick}
-        onBlur={() => setColorPalettePopup(false)}
-        onFocus={() => setColorPalettePopup(true)}
-      >
-        <div className="flex flex-col items-center justify-center gap-0.5 w-full">
-          <Type className="size-3" />
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-6 w-4 flex items-center justify-center rounded-sm text-sm flex-col shrink-0 p-0 leading-none">
+          <span className="text-md font-bold">A</span>
           <div
-            className="h-[3px] w-full rounded-md "
-            style={{
-              backgroundColor: editorState
-                ? editorState !== ""
-                  ? editorState
-                  : "#000000"
-                : "#000000",
-            }}
+            className="h-0.5 w-full rounded-md mt-0.5"
+            style={{ backgroundColor: value }}
           />
-        </div>
-      </div>
-
-      {colorPalettePopup && (
-        <ColorPalette
-          ref={ref as RefObject<HTMLDivElement>}
-          color={editorState ?? "#000000"}
-          handleColorChange={handleColorChange}
-        />
-      )}
-    </div>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuContent
+          className="p-2.5 bg-white shadow-lg rounded-lg"
+          sideOffset={12}
+          side="bottom"
+        >
+          <CirclePicker color={value} onChange={onChange} />
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
+    </DropdownMenu>
   );
 };
 

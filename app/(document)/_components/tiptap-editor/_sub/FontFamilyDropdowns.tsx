@@ -15,18 +15,10 @@ const FontFamilyDropdowns = ({ editor }: { editor: Editor }) => {
   const fonts = [
     { label: "Arial", value: "Arial" },
     { label: "Times New Roman", value: "Times New Roman" },
-
-    // 공백 포함 폰트는 따옴표로 감싸기
     { label: "Courier New", value: "Courier New" },
     { label: "Georgia", value: "Georgia" },
     { label: "Verdana", value: "Verdana" },
   ];
-
-  const getCurrentFontLabel = () => {
-    const currentFont = editor.getAttributes("textStyle").fontFamily;
-    const font = fonts.find((f) => f.value === currentFont);
-    return font ? font.label : "Arial";
-  };
 
   return (
     <DropdownMenu
@@ -55,8 +47,10 @@ const FontFamilyDropdowns = ({ editor }: { editor: Editor }) => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        align="center"
-        className="p-1 flex flex-col gap-1 top-2"
+        align="start"
+        sideOffset={12}
+        side="bottom"
+        className="p-1 flex flex-col gap-1 top-2 -ml-2"
       >
         {fonts.map(({ label, value }) => (
           <DropdownMenuItem
