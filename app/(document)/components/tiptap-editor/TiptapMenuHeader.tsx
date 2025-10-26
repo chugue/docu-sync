@@ -18,18 +18,18 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
-import TextAlignButton from "./_menus/AlignButton";
-import FontFamilyDropdowns from "./_menus/FontFamilyDropdowns";
-import FontSizeInput from "./_menus/FontSizeInput";
-import HeadingDropDowns from "./_menus/Headings";
-import HighlightColor from "./_menus/HighlightColor";
-import ImageButton from "./_menus/ImageButton";
-import LineHeightButton from "./_menus/LineHeightButton";
-import LinkButton from "./_menus/LinkButton";
-import ListButton from "./_menus/ListButton";
-import MenuSeperator from "./_menus/MenuSeperator";
-import TextColor from "./_menus/TextColor";
-import ZoomLevels from "./_menus/ZoomLevels";
+import TextAlignButton from "./menus/AlignButton";
+import FontFamilyDropdowns from "./menus/FontFamilyDropdowns";
+import FontSizeInput from "./menus/FontSizeInput";
+import HeadingDropDowns from "./menus/Headings";
+import HighlightColor from "./menus/HighlightColor";
+import ImageButton from "./menus/ImageButton";
+import LineHeightButton from "./menus/LineHeightButton";
+import LinkButton from "./menus/LinkButton";
+import ListButton from "./menus/ListButton";
+import MenuSeperator from "./menus/MenuSeperator";
+import TextColor from "./menus/TextColor";
+import ZoomLevels from "./menus/ZoomLevels";
 
 interface TiptapMenubarIcons {
   icon: React.ReactNode;

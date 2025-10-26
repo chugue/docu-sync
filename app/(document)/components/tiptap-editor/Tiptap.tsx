@@ -26,6 +26,7 @@ import {
 import { CharacterCount, Selection } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Ruler from "../document-body/ruler";
 import TiptapMenubar from "./TiptapMenuHeader";
 
 const Tiptap = () => {
@@ -33,6 +34,7 @@ const Tiptap = () => {
     useEditorStore();
 
   useEditor({
+    immediatelyRender: false,
     editorProps: {
       attributes: {
         style: "padding-left: 56px, padding-right: 56px",
@@ -222,8 +224,6 @@ const Tiptap = () => {
       By default every link will get a <code>rel="noopener noreferrer nofollow"</code> attribute. It’s configurable though.
     </p>
   `,
-    // Don't render immediately on the server to avoid SSR issues
-    immediatelyRender: false,
     onCreate: ({ editor }) => {
       setEditorState(editor);
     },
@@ -239,6 +239,7 @@ const Tiptap = () => {
   return (
     <div className="size-full overflow-x-auto print:p-0 print:bg-white print:overflow-visible">
       <TiptapMenubar editor={editorState} />
+      <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <div
           className="w-[816px]"

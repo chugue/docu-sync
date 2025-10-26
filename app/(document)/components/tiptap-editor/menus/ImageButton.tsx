@@ -61,7 +61,7 @@ const ImageButton = ({ editor }: { editor: Editor }) => {
         </DropdownMenuTrigger>
         <DropdownMenuPortal>
           <DropdownMenuContent
-            className="p-1 bg-white shadow-lg rounded-lg flex flex-col gap-2 -ml-2"
+            className="p-1 bg-white shadow-lg rounded-lg flex flex-col gap-2 -ml-2 text-sm"
             sideOffset={12}
             side="bottom"
             align="start"

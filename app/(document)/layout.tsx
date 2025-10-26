@@ -1,4 +1,4 @@
-import DocumentHeader from "./_components/DocumentHeader";
+import DocumentHeader from "./components/DocumentHeader";
 
 const DocumentLayout = ({
   children,
