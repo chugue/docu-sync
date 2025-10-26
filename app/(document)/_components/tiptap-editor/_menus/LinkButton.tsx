@@ -1,4 +1,4 @@
-import { Input } from "@/shared/components/tiptap-ui-primitive/input";
+import { Input } from "@/shared/components/tiptap/tiptap-ui-primitive/input";
 import {
   DropdownMenu,
   DropdownMenuContent,

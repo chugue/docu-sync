@@ -1,5 +1,6 @@
 "use client";
 
+import { LineHeightExtension } from "@/shared/components/tiptap/module/tiptap-line-height";
 import { useEditorStore } from "@/shared/store/use-editor-store";
 import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
@@ -49,6 +50,7 @@ const Tiptap = () => {
       TextStyleKit,
       FontSize,
       FontFamily,
+      LineHeightExtension,
       Color,
       Code.configure({
         HTMLAttributes: {

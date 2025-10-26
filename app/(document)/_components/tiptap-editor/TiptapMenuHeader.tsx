@@ -24,6 +24,7 @@ import FontSizeInput from "./_menus/FontSizeInput";
 import HeadingDropDowns from "./_menus/Headings";
 import HighlightColor from "./_menus/HighlightColor";
 import ImageButton from "./_menus/ImageButton";
+import LineHeightButton from "./_menus/LineHeightButton";
 import LinkButton from "./_menus/LinkButton";
 import ListButton from "./_menus/ListButton";
 import MenuSeperator from "./_menus/MenuSeperator";
@@ -145,17 +146,20 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <FontFamilyDropdowns editor={editor} />,
       name: "font-family",
       onClick: () => {},
+      desc: "폰트 타입",
     },
     {
       icon: <HeadingDropDowns editor={editor} />,
       name: "headings",
       onClick: () => {},
+      desc: "헤더 타입",
     },
     {
       icon: <CodeBlockIcon className="size-4" />,
       name: "code-block",
       onClick: () => editor.chain().focus().toggleCodeBlock().run(),
       pressed: editor.isActive("codeBlock"),
+      desc: "코드 블럭 전환",
     },
 
     {
@@ -163,6 +167,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       name: "link",
       onClick: () => {},
       pressed: editor.isActive("link"),
+      desc: "링크 추가",
     },
     {
       icon: <MenuSeperator />,
@@ -175,18 +180,21 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       name: "bold",
       onClick: () => editor.chain().focus().toggleBold().run(),
       pressed: editor.isActive("bold"),
+      desc: "굵게",
     },
     {
       icon: <Italic className="size-4" />,
       name: "italic",
       onClick: () => editor.chain().focus().toggleItalic().run(),
       pressed: editor.isActive("italic"),
+      desc: "기울임",
     },
     {
       icon: <Underline className="size-4 " />,
       name: "underline",
       onClick: () => editor.chain().focus().toggleUnderline().run(),
       pressed: editor.isActive("underline"),
+      desc: "밑줄",
     },
     {
       icon: <TextColor editor={editor} />,
@@ -207,6 +215,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       name: "strike",
       onClick: () => editor.chain().focus().toggleStrike().run(),
       pressed: editor.isActive("strike"),
+      desc: "취소선",
     },
     {
       icon: <MenuSeperator />,
@@ -229,17 +238,29 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       pressed: ["bulletList", "orderedList"].some((list) =>
         editor.isActive(list)
       ),
+      desc: "리스트 타입",
+    },
+    {
+      icon: <LineHeightButton editor={editor} />,
+      name: "line-height",
+      onClick: () => {},
+      pressed: ["1", "1.15", "1.5", "2"].some((lineHeight) =>
+        editor.isActive({ lineHeight })
+      ),
+      desc: "줄 간격",
     },
     {
       icon: <MessageSquareIcon className="size-4" />,
       name: "comment",
       onClick: () => {},
       pressed: false,
+      desc: "코멘트 추가",
     },
     {
       icon: <RemoveFormattingIcon className="size-4" />,
       name: "remove-formatting",
       onClick: () => editor.chain().focus().unsetAllMarks().run(),
+      desc: "서식 지우기",
     },
 
     {
@@ -252,6 +273,7 @@ const TiptapMenubar = ({ editor }: { editor: Editor | null }) => {
       icon: <ImageButton editor={editor} />,
       name: "image",
       onClick: () => {},
+      desc: "이미지 추가",
     },
   ];
 

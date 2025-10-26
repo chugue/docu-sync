@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "@/shared/components/tiptap-icons/chevron-down-icon";
+import { ChevronDownIcon } from "@/shared/components/tiptap/tiptap-icons/chevron-down-icon";
 import {
   DropdownMenu,
   DropdownMenuContent,
